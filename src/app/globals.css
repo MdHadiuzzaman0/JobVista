@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@import "@heroui/styles"; 
+
+@theme {
+  --color-workable-bg: #F3F2F7;
+  --color-workable-dark-green: #00624A;
+  --color-workable-primary: #008264;
+  --color-workable-slate: #2F2E4E;
+  --color-workable-text-dark: #1E242B;
+  --color-workable-text-muted: #656B73;
+
+  --font-heading: var(--font-heading), sans-serif;
+  --font-body: var(--font-body), sans-serif;
+}
+
+body {
+  background-color: var(--color-workable-bg);
+  color: var(--color-workable-text-dark);
+}
