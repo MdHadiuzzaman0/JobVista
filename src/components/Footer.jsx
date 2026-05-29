@@ -27,7 +27,7 @@ export default function Footer() {
 
     return (
 
-        <footer className="w-full bg-[#031d16] text-white/70 pt-16 pb-8 px-3 font-body relative border-t border-workable-primary/20">
+        <footer className="w-full bg-[#031d16] text-white/70 pt-16 pb-8 px-8 font-body relative border-t border-workable-primary/20">
 
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(var(--color-workable-primary)_1px,transparent_1px)] [background-size:24px_24px]"></div>
             <div className="max-w-7xl mx-auto relative z-10 space-y-12">

@@ -4,7 +4,7 @@ import NavbarRight from './NavbarRight';
 
 export default function Navbar() {
   return (
-    <div className="navbar px-6 md:px-12 fixed lg:sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-[#E5E4EA]/60 font-body">
+    <div className="navbar px-6 fixed lg:sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-[#E5E4EA]/60 font-body">
 
       <div className="navbar-start">
         <Link href="/" className="flex items-center gap-3 cursor-pointer select-none group">
@@ -35,13 +35,13 @@ export default function Navbar() {
       <div className="navbar-center hidden lg:flex">
         <ul className="flex items-center gap-1">
           <li><NavLink href="/">Home</NavLink></li>
-          <li><NavLink href="/jobs">Find Jobs</NavLink></li>
+          <li><NavLink href="/jobs">Explore Jobs</NavLink></li>
           <li><NavLink href="/companies">Browse Companies</NavLink></li>
           <li><NavLink href="/resources">Resources</NavLink></li>
         </ul>
       </div>
 
-      <div className="navbar-end gap-2">
+      <div className="navbar-end">
       <NavbarRight />
       </div>
 

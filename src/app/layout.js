@@ -4,6 +4,9 @@ import Navbar from "@/components/Navbar";
 import ConditionalPageShow from "@/components/ConditionalPageShow"
 import Footer from "@/components/Footer"
 import { ToastContainer } from 'react-toastify';
+import { auth } from "@/lib/auth"; 
+import { headers } from "next/headers";
+import SubNavbar from "@/components/SubNavbar";
 
 // Heading
 const headingFont = Plus_Jakarta_Sans({
@@ -24,11 +27,16 @@ export const metadata = {
   description: "Manage your entire process from sourcing to employee onboarding.",
 };
 
+const session = await auth.api.getSession({
+    headers: await headers()
+})
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${headingFont.variable} ${bodyFont.variable}`}>
       <body className="font-body antialiased">
         <Navbar />
+        <SubNavbar />
         <ToastContainer position="top-center" autoClose={1200} />
         <main>
         {children}
