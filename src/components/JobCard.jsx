@@ -1,66 +1,92 @@
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 import { HiOutlineLocationMarker, HiOutlineFolderOpen } from "react-icons/hi";
 import { FiClock } from "react-icons/fi";
-import { FaRegBookmark } from "react-icons/fa";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import Image from "next/image";
 
 const JobCard = ({ job }) => {
     const { _id, title, category, company, location, type, salaryMin, salaryMax, currency, deadline } = job;
+    const [isSaved, setIsSaved] = useState(false);
 
     const currencySymbol = currency === "USD" ? "$" : "৳";
 
     return (
-        <div className="bg-white border border-workable-text-muted/10 rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:border-workable-dark-green/20 transition-all duration-300 flex flex-col justify-between h-full group relative">
+        <div className="bg-white border border-workable-text-muted/10 rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:border-workable-dark-green/20 transition-all duration-300 flex flex-col justify-between h-full group">
+            
             <div>
-                <div className="flex items-start justify-between gap-4 mb-4">
-                    <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-workable-bg border border-workable-text-muted/10 flex items-center justify-center overflow-hidden p-2 bg-white shrink-0">
-                            <Image
-                                src={company?.logo || "https://placehold.co/100x100?text=Job"} 
-                                alt={company?.name} fill
-                                className="w-full h-full object-contain"
-                            />
-                        </div>
-                        <div>
-                            <p className="font-body text-sm text-workable-text-muted font-medium mb-0.5">{company?.name}</p>
-                            <span className="inline-flex items-center px-3 py-0.5 rounded-full text-[10px] font-heading font-bold uppercase tracking-wider bg-workable-dark-green/10 text-workable-dark-green">
-                                {type}
-                            </span>
-                        </div>
-                    </div>
+                {/* ১. ইমেজ কন্টেইনার - ফুল উইডথ এবং ওপরে অ্যাবসোলিউট বুকমার্ক বাটন */}
+                <div className="w-full h-48 rounded-xl bg-workable-bg border border-workable-text-muted/5 flex items-center justify-center overflow-hidden bg-gray-50 relative mb-4 shrink-0">
+                    {company?.logo ? (
+                        <Image
+                            src={company.logo} 
+                            alt={company?.name || "Company Logo"} 
+                            fill
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            priority
+                        />
+                    ) : (
+                        <div className="text-sm font-bold text-workable-text-muted">No Image Available</div>
+                    )}
 
-                    <button className="p-2.5 rounded-xl bg-workable-bg hover:bg-workable-dark-green/10 text-workable-text-muted hover:text-workable-dark-green transition-all duration-200 cursor-pointer select-none">
-                        <FaRegBookmark className="text-sm" />
+                    {/* ইমেজের ওপর অ্যাবসোলিউট সেভড বাটন */}
+                    <button 
+                        onClick={() => setIsSaved(!isSaved)}
+                        className="absolute top-3 right-3 p-2.5 rounded-xl bg-white/80 backdrop-blur-md hover:bg-white text-workable-text-dark shadow-sm transition-all duration-200 cursor-pointer select-none z-10"
+                    >
+                        {isSaved ? (
+                            <FaBookmark className="text-sm text-workable-dark-green scale-110 transition-transform" />
+                        ) : (
+                            <FaRegBookmark className="text-sm text-workable-text-muted hover:text-workable-dark-green transition-colors" />
+                        )}
                     </button>
+
+                    {/* জবের টাইপ ব্যাজটি ইমেজের বাম পাশে অ্যাবসোলিউট করে দিলে আরও গর্জিয়াস লাগবে */}
+                    <span className="absolute bottom-3 left-3 inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-heading font-black uppercase tracking-wider bg-white/90 backdrop-blur-sm text-workable-dark-green shadow-sm">
+                        {type}
+                    </span>
                 </div>
 
-                <Link href={`/jobs/${_id}`}>
-                    <h3 className="font-heading text-lg font-bold text-workable-text-dark group-hover:text-workable-dark-green transition-colors duration-200 line-clamp-1 mb-3 cursor-pointer">
-                        {title}
-                    </h3>
-                </Link>
+                {/* কোম্পানির নাম */}
+                <p className="font-body text-xs text-workable-text-muted font-semibold uppercase tracking-wider mb-1">
+                    {company?.name}
+                </p>
 
+                {/* ২. ইনফরমেশন লেআউট ফিক্স (রেড মার্ক করা খালি জায়গা কাভার করার জন্য) */}
                 <div className="flex flex-col gap-2 mb-4">
-                    <div className="flex items-center gap-2 text-workable-text-muted font-body text-[13px]">
-                        <HiOutlineFolderOpen className="text-workable-dark-green text-base shrink-0" />
-                        <span className="bg-workable-bg px-2.5 py-0.5 rounded-md text-xs font-medium text-workable-text-dark/80">{category}</span>
-                    </div>
+                    {/* টাইটেল */}
+                    <Link href={`/jobs/${_id}`}>
+                        <h3 className="font-heading text-lg md:text-xl font-black text-workable-text-dark group-hover:text-workable-dark-green transition-colors duration-200 line-clamp-1 cursor-pointer">
+                            {title}
+                        </h3>
+                    </Link>
 
-                    <div className="flex items-center gap-2 text-workable-text-muted font-body text-[13px]">
-                        <HiOutlineLocationMarker className="text-workable-dark-green text-base shrink-0" />
-                        <span className="line-clamp-1">{location}</span>
+                    {/* ক্যাটাগরি ও লোকেশন পাশাপাশি এসে খালি জায়গা পূরণ করবে */}
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1">
+                        <div className="flex items-center gap-1.5 text-workable-text-muted font-body text-xs">
+                            <HiOutlineFolderOpen className="text-workable-dark-green text-sm shrink-0" />
+                            <span className="font-medium text-workable-text-dark/80">{category}</span>
+                        </div>
+
+                        <div className="flex items-center gap-1.5 text-workable-text-muted font-body text-xs">
+                            <HiOutlineLocationMarker className="text-workable-dark-green text-sm shrink-0" />
+                            <span className="line-clamp-1">{location}</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            {/* স্যালারি, ডেডলাইন ও বাটন সেকশন */}
             <div className="border-t border-workable-text-muted/5 pt-4 mt-2">
                 <div className="flex items-center justify-between gap-2 mb-4">
                     <div className="flex flex-col">
                         <span className="text-[10px] uppercase tracking-wider font-heading text-workable-text-muted font-bold">Salary</span>
                         <div className="flex items-center font-heading text-[14px] font-bold text-workable-text-dark">
-                            <span>{currencySymbol}{salaryMin.toLocaleString()}</span>
+                            <span>{currencySymbol}{salaryMin?.toLocaleString()}</span>
                             <span className="mx-0.5 text-workable-text-muted/50">-</span>
-                            <span>{currencySymbol}{salaryMax.toLocaleString()}</span>
+                            <span>{currencySymbol}{salaryMax?.toLocaleString()}</span>
                         </div>
                     </div>
 
@@ -75,7 +101,7 @@ const JobCard = ({ job }) => {
 
                 <div className="grid grid-cols-2 gap-2.5 w-full">
                     <Link href={`/jobs/${_id}`} className="w-full">
-                        <button className="w-full bg-workable-bg hover:bg-workable-dark-green/5 text-workable-text-dark font-heading text-[11px] uppercase tracking-wider font-bold py-2.5 rounded-xl transition-all duration-300 border border-workable-text-muted/10 select-none cursor-pointer text-center">
+                        <button className="w-full bg-workable-bg hover:bg-workable-dark-green/25 text-workable-text-dark font-heading text-[11px] uppercase tracking-wider font-bold py-2.5 rounded-xl transition-all duration-300 border border-workable-text-muted/20 select-none cursor-pointer text-center">
                             Details
                         </button>
                     </Link>
@@ -87,6 +113,7 @@ const JobCard = ({ job }) => {
                     </Link>
                 </div>
             </div>
+
         </div>
     );
 };

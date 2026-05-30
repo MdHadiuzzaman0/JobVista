@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { Badge } from "@heroui/react";
 
 const SubNavbar = () => {
     const pathname = usePathname();
@@ -13,7 +14,7 @@ const SubNavbar = () => {
 
     // রোল অনুযায়ী মেনু আইটেম সেটআপ
     const seekerLinks = [
-        { name: "Applied", href: "/applied_jobs", count: 4 }, 
+        { name: "Applied", href: "/applied_jobs", count: 4 },
         { name: "Saved", href: "/saved_jobs", count: null },
         { name: "Profile", href: "/profile", count: null },
     ];
@@ -28,31 +29,31 @@ const SubNavbar = () => {
     const links = user?.role === "recruiter" ? recruiterLinks : seekerLinks;
 
     return (
-        <div className="w-full flex justify-center sticky top-[73px] z-40 mt-6 mb-4">
-            <div className="bg-white/80 backdrop-blur-md border border-workable-text-muted/10 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.04)] px-3 py-2 flex items-center gap-2 pointer-events-auto">
+        // SubNavbar এর রিটার্ন কন্টেইনারে এই মার্জিন ক্লাসের কম্বিনেশন দেখতে পারো:
+        <div className="w-full flex justify-center sticky top-[73px] z-40 mt-4 mb-8">
+            <div className="bg-white/90 backdrop-blur-md border border-workable-text-muted/10 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.05)] px-3 py-1 flex items-center gap-2 pointer-events-auto">
+
                 {links.map((link) => {
                     const isActive = pathname === link.href;
                     return (
                         <Link
                             key={link.href}
                             href={link.href}
-                            className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full font-heading text-[15px] uppercase tracking-widest transition-all duration-300 select-none
+                            className={`relative flex items-center gap-2 px-3 py-1 rounded-full font-heading text-[10px] uppercase tracking-widest transition-all duration-300 select-none
                                 ${isActive
                                     ? "bg-workable-dark-green/10 text-workable-dark-green font-bold"
                                     : "text-workable-text-muted hover:text-workable-text-dark hover:bg-workable-bg"
                                 }`}
                         >
-                            {link.name}
-
-                            {link.count && (
-                                <span className={`flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[9px] font-mono transition-colors
-                                    ${isActive
-                                        ? "bg-workable-text-dark text-white"
-                                        : "bg-workable-text-muted/20 text-workable-text-muted"
-                                    }`}>
-                                    {link.count}
-                                </span>
-                            )}
+                            {link.count > 0 ?
+                                <Badge.Anchor>
+                                    {link.name}
+                                    <Badge color="success" size="sm">
+                                        {link.count}
+                                    </Badge>
+                                </Badge.Anchor>
+                                    :
+                                link.name}
                         </Link>
                     );
                 })}
