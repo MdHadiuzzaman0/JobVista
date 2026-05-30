@@ -4,8 +4,6 @@ import Navbar from "@/components/Navbar";
 import ConditionalPageShow from "@/components/ConditionalPageShow"
 import Footer from "@/components/Footer"
 import { ToastContainer } from 'react-toastify';
-import { auth } from "@/lib/auth"; 
-import { headers } from "next/headers";
 import SubNavbar from "@/components/SubNavbar";
 
 // Heading
@@ -26,10 +24,6 @@ export const metadata = {
   title: "JobVista - Premium Recruiting Platform",
   description: "Manage your entire process from sourcing to employee onboarding.",
 };
-
-const session = await auth.api.getSession({
-    headers: await headers()
-})
 
 export default function RootLayout({ children }) {
   return (

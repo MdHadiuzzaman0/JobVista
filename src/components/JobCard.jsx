@@ -8,20 +8,17 @@ import Image from "next/image";
 
 const JobCard = ({ job }) => {
     const { _id, title, category, company, location, type, salaryMin, salaryMax, currency, deadline } = job;
-    const [isSaved, setIsSaved] = useState(false);
-
     const currencySymbol = currency === "USD" ? "$" : "৳";
 
     return (
         <div className="bg-white border border-workable-text-muted/10 rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:border-workable-dark-green/20 transition-all duration-300 flex flex-col justify-between h-full group">
-            
+
             <div>
-                {/* ১. ইমেজ কন্টেইনার - ফুল উইডথ এবং ওপরে অ্যাবসোলিউট বুকমার্ক বাটন */}
                 <div className="w-full h-48 rounded-xl bg-workable-bg border border-workable-text-muted/5 flex items-center justify-center overflow-hidden bg-gray-50 relative mb-4 shrink-0">
                     {company?.logo ? (
                         <Image
-                            src={company.logo} 
-                            alt={company?.name || "Company Logo"} 
+                            src={company.logo}
+                            alt={company?.name || "Company Logo"}
                             fill
                             sizes="(max-width: 768px) 100vw, 33vw"
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -31,39 +28,30 @@ const JobCard = ({ job }) => {
                         <div className="text-sm font-bold text-workable-text-muted">No Image Available</div>
                     )}
 
-                    {/* ইমেজের ওপর অ্যাবসোলিউট সেভড বাটন */}
-                    <button 
+                    <button
                         onClick={() => setIsSaved(!isSaved)}
                         className="absolute top-3 right-3 p-2.5 rounded-xl bg-white/80 backdrop-blur-md hover:bg-white text-workable-text-dark shadow-sm transition-all duration-200 cursor-pointer select-none z-10"
                     >
-                        {isSaved ? (
-                            <FaBookmark className="text-sm text-workable-dark-green scale-110 transition-transform" />
-                        ) : (
-                            <FaRegBookmark className="text-sm text-workable-text-muted hover:text-workable-dark-green transition-colors" />
-                        )}
+                        <FaBookmark className="text-sm text-workable-dark-green scale-110 transition-transform" />
+
                     </button>
 
-                    {/* জবের টাইপ ব্যাজটি ইমেজের বাম পাশে অ্যাবসোলিউট করে দিলে আরও গর্জিয়াস লাগবে */}
                     <span className="absolute bottom-3 left-3 inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-heading font-black uppercase tracking-wider bg-white/90 backdrop-blur-sm text-workable-dark-green shadow-sm">
                         {type}
                     </span>
                 </div>
 
-                {/* কোম্পানির নাম */}
                 <p className="font-body text-xs text-workable-text-muted font-semibold uppercase tracking-wider mb-1">
                     {company?.name}
                 </p>
 
-                {/* ২. ইনফরমেশন লেআউট ফিক্স (রেড মার্ক করা খালি জায়গা কাভার করার জন্য) */}
                 <div className="flex flex-col gap-2 mb-4">
-                    {/* টাইটেল */}
                     <Link href={`/jobs/${_id}`}>
                         <h3 className="font-heading text-lg md:text-xl font-black text-workable-text-dark group-hover:text-workable-dark-green transition-colors duration-200 line-clamp-1 cursor-pointer">
                             {title}
                         </h3>
                     </Link>
 
-                    {/* ক্যাটাগরি ও লোকেশন পাশাপাশি এসে খালি জায়গা পূরণ করবে */}
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1">
                         <div className="flex items-center gap-1.5 text-workable-text-muted font-body text-xs">
                             <HiOutlineFolderOpen className="text-workable-dark-green text-sm shrink-0" />
@@ -78,7 +66,6 @@ const JobCard = ({ job }) => {
                 </div>
             </div>
 
-            {/* স্যালারি, ডেডলাইন ও বাটন সেকশন */}
             <div className="border-t border-workable-text-muted/5 pt-4 mt-2">
                 <div className="flex items-center justify-between gap-2 mb-4">
                     <div className="flex flex-col">
@@ -100,13 +87,13 @@ const JobCard = ({ job }) => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2.5 w-full">
-                    <Link href={`/jobs/${_id}`} className="w-full">
+                    <Link href={`/explore_jobs/${_id}`} className="w-full">
                         <button className="w-full bg-workable-bg hover:bg-workable-dark-green/25 text-workable-text-dark font-heading text-[11px] uppercase tracking-wider font-bold py-2.5 rounded-xl transition-all duration-300 border border-workable-text-muted/20 select-none cursor-pointer text-center">
                             Details
                         </button>
                     </Link>
 
-                    <Link href={`/jobs/${_id}`} className="w-full">
+                    <Link href={`/explore_jobs/${_id}`} className="w-full">
                         <button className="w-full bg-workable-dark-green hover:bg-workable-dark-green/90 text-white font-heading text-[11px] uppercase tracking-wider font-bold py-2.5 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md shadow-workable-dark-green/10 select-none cursor-pointer text-center">
                             Apply Now
                         </button>

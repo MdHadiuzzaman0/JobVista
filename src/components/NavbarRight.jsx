@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
-import { Avatar } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { FiLogOut, FiChevronDown } from "react-icons/fi";
 import { useState, useRef, useEffect } from "react";
@@ -41,13 +41,15 @@ const NavbarRight = () => {
 
     const seekerItems = [
         { id: "profile", label: "Profile", href: "/profile" },
+        { id: "explore_jobs", label: "Explore Jobs", href: "/explore_jobs" },
         { id: "applied_jobs", label: "Applied Jobs", href: "/applied_jobs" },
-        { id: "saved_jobs", label: "Saved Jobs", href: "/saved_jobs" },
+        { id: "saved_jobs", label: "Saved Items", href: "/saved_jobs" },
     ];
 
     const recruiterItems = [
         { id: "company_profile", label: "Company", href: "/company_profile" },
         { id: "dashboard", label: "Dashboard", href: "/dashboard" },
+        { id: "explore_jobs", label: "Explore Jobs", href: "/explore_jobs" },
         { id: "post_job", label: "Post Job", href: "/post_job" },
         { id: "applicants", label: "Applicants", href: "/applicants" },
     ];
@@ -91,20 +93,20 @@ const NavbarRight = () => {
                     >
                         {/* Avatar */}
                         <div>
-                        <Avatar
-                            size="sm"
-                            className={`w-8 h-8 rounded-full ring-2 transition-all duration-300
+                            <Avatar
+                                size="sm"
+                                className={`w-8 h-8 rounded-full ring-2 transition-all duration-300
                                 ${isOpen ? "ring-workable-dark-green/30" : "ring-transparent"}`}
-                        >
-                            <Avatar.Image
-                                alt={user?.name || "User"}
-                                src={user?.image}
-                                className="rounded-full object-cover"
-                            />
-                            <Avatar.Fallback className="rounded-full bg-workable-dark-green text-white font-heading font-bold text-xs">
-                                {user?.name?.charAt(0)}
-                            </Avatar.Fallback>
-                        </Avatar>
+                            >
+                                <Avatar.Image
+                                    alt={user?.name || "User"}
+                                    src={user?.image}
+                                    className="rounded-full object-cover"
+                                />
+                                <Avatar.Fallback className="rounded-full bg-workable-dark-green text-white font-heading font-bold text-xs">
+                                    {user?.name?.charAt(0)}
+                                </Avatar.Fallback>
+                            </Avatar>
                         </div>
 
                         {/* Name + role */}
@@ -126,7 +128,7 @@ const NavbarRight = () => {
 
                     {/* Dropdown panel */}
                     {isOpen && (
-                        <div className="absolute right-0 top-full mt-2 bg-workable-bg border border-workable-text-muted/10 shadow-2xl rounded-2xl z-50 overflow-hidden py-2" style={{ width: "280px" }}>
+                        <div className="absolute right-0 top-full mt-2 bg-workable-bg border border-workable-text-muted/10 shadow-2xl rounded-2xl z-50 overflow-hidden py-2 text-center" style={{ width: "280px" }}>
 
                             {/* Section label */}
                             <div className="px-4 pt-1 pb-2 border-b border-workable-text-muted/10">
@@ -138,25 +140,25 @@ const NavbarRight = () => {
                             {/* Menu items */}
                             <div className="px-2 pt-2 flex flex-col gap-0.5">
                                 {menuItems.map((item) => (
-                                    <button
-                                        key={item.id}
+                                    <Button
+                                        key={item.id} variant="light" disableAnimation
                                         onClick={() => { router.push(item.href); setIsOpen(false); }}
-                                        className="w-full text-left font-heading text-xs uppercase tracking-wide text-workable-text-dark hover:bg-workable-dark-green/5 hover:text-workable-dark-green rounded-xl px-3 py-2.5 transition-all cursor-pointer"
+                                        className="w-full bg-transparent min-w-0 h-auto font-heading text-xs uppercase tracking-wide text-workable-text-dark hover:bg-workable-dark-green/15 hover:text-workable-dark-green rounded-xl px-3 py-2.5 transition-all cursor-pointer block text-center"
                                     >
                                         {item.label}
-                                    </button>
+                                    </Button>
                                 ))}
                             </div>
 
                             {/* Logout */}
                             <div className="px-2 pt-2 mt-1 border-t border-workable-text-muted/10">
-                                <button
+                                <Button
                                     onClick={() => { logout(); setIsOpen(false); }}
-                                    className="w-full text-left font-heading text-xs uppercase tracking-wide text-rose-500 hover:bg-rose-50 rounded-xl px-3 py-2.5 transition-all flex items-center gap-2 cursor-pointer"
+                                    className="w-full bg-transparent min-w-0 h-auto font-heading text-xs uppercase tracking-wide text-rose-500 hover:bg-rose-200 rounded-xl px-3 py-2.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
                                 >
                                     <FiLogOut className="w-4 h-4" />
                                     Logout
-                                </button>
+                                </Button>
                             </div>
                         </div>
                     )}

@@ -8,13 +8,10 @@ const SubNavbar = () => {
     const pathname = usePathname();
     const { data: session } = authClient.useSession();
     const user = session?.user;
-
-    // ইউজার লগইন না থাকলে সাব-ন্যাভবার দেখাবে না
     if (!session) return null;
-
-    // রোল অনুযায়ী মেনু আইটেম সেটআপ
+    
     const seekerLinks = [
-        { name: "Applied", href: "/applied_jobs", count: 4 },
+        { name: "Applied", href: "/applied_jobs", count: null },
         { name: "Saved", href: "/saved_jobs", count: null },
         { name: "Profile", href: "/profile", count: null },
     ];
@@ -22,17 +19,16 @@ const SubNavbar = () => {
     const recruiterLinks = [
         { name: "Dashboard", href: "/dashboard", count: null },
         { name: "Post Job", href: "/post_job", count: null },
-        { name: "Applicants", href: "/applicants", count: 12 },
+        { name: "Applicants", href: "/applicants", count: null },
         { name: "Company", href: "/company_profile", count: null },
     ];
 
     const links = user?.role === "recruiter" ? recruiterLinks : seekerLinks;
 
     return (
-        // SubNavbar এর রিটার্ন কন্টেইনারে এই মার্জিন ক্লাসের কম্বিনেশন দেখতে পারো:
+        
         <div className="w-full flex justify-center sticky top-[73px] z-40 mt-4 mb-8">
             <div className="bg-white/90 backdrop-blur-md border border-workable-text-muted/10 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.05)] px-3 py-1 flex items-center gap-2 pointer-events-auto">
-
                 {links.map((link) => {
                     const isActive = pathname === link.href;
                     return (
