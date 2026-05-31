@@ -8,6 +8,7 @@ import { getJobById } from "@/lib/data";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import GoBackBtnInDetailPage from '@/components/GoBackBtnInDetailPage';
+import ApplyButton from "@/components/ApplyButton";
 
 const JobDetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -22,6 +23,7 @@ const JobDetailsPage = async ({ params }) => {
         headers: await headers()
     });
     const user = session?.user;
+    const email = user?.email;
     console.log(id, session)
 
     return (
@@ -44,9 +46,7 @@ const JobDetailsPage = async ({ params }) => {
                             </>
                         ) : (
                             <>
-                                <Link href={`/jobs/${id}/apply`} className="w-full sm:w-auto px-6 bg-workable-dark-green hover:bg-workable-dark-green/90 text-white font-heading font-bold text-xs py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-md shadow-workable-dark-green/10 transition-all cursor-pointer">
-                                    <FiSend size={14} /> Apply Now
-                                </Link>
+                                <ApplyButton job={job} email={email}/>
                                 <Link href="#" className="w-full sm:w-auto px-5 bg-purple-50 hover:bg-purple-100 text-workable-dark-green font-heading font-bold text-xs py-3.5 rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer">
                                     <FaBookmark size={12} /> Save Job
                                 </Link>
