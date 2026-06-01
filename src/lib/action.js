@@ -1,4 +1,5 @@
 "use server";
+import { revalidatePath } from "next/cache";
 
 //insert applied jobs
 export async function handleApplyJob(appliedData) {
@@ -10,12 +11,12 @@ export async function handleApplyJob(appliedData) {
       },
       body: JSON.stringify(appliedData),
     });
-
     if (!response.ok) throw new Error("Server error");
 
     const result = await response.json();
+    revalidatePath(`/explore_jobs/${appliedData.jobId}`);
+    revalidatePath('/explore_jobs');
     return { success: true, result }
-       
   } catch (error) {
     return { success: false, error: error.message };
   }
@@ -35,46 +36,43 @@ export async function handleSaveJob(savedData) {
     if (!response.ok) throw new Error("Server error");
 
     const result = await response.json();
+    revalidatePath(`/explore_jobs/${savedData.jobId}`);
+    revalidatePath('/explore_jobs');
     return { success: true, result };
   } catch (error) {
     return { success: false, error: error.message };
   }
 }
 
-//delete
+//delete applied data
 export async function handleDeleteAppliedJob(id) {
-  console.log("Deleting ID:", id); // ← এটা add করো
   try {
     const response = await fetch(`http://localhost:8000/removeJob/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
-
     if (!response.ok) throw new Error("Server error");
 
     const result = await response.json();
-    console.log("Delete result:", result); // ← এটাও
+    revalidatePath('/applied_jobs')
     return { success: true, result };
-
   } catch (error) {
     return { success: false, error: error.message };
   }
 }
 
+//delete saved data
 export async function handleDeleteSavedJob(id) {
-  console.log("Deleting ID:", id); // ← এটা add করো
   try {
     const response = await fetch(`http://localhost:8000/removeSavedJob/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
-
     if (!response.ok) throw new Error("Server error");
 
     const result = await response.json();
-    console.log("Delete result:", result); // ← এটাও
+    revalidatePath('/saved_jobs')
     return { success: true, result };
-
   } catch (error) {
     return { success: false, error: error.message };
   }}

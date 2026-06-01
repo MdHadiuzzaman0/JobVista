@@ -7,13 +7,11 @@ import { FiClock } from "react-icons/fi";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import Image from "next/image";
 import ApplyButton from '@/components/ApplyButton'
+import SavedButton from '@/components/SavedButton'
 
-const JobCard = ({ job }) => {
+const JobCard = ({ job, email, allAppliedJob, allSavedJob }) => {
     const { _id, title, category, company, location, type, salaryMin, salaryMax, currency, deadline } = job;
     const currencySymbol = currency === "USD" ? "$" : "৳";
-
-    const { data: session, isPending, error } = useSession()
-    const email = session?.user?.email;
 
     return (
         <div className="bg-white border border-workable-text-muted/10 rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:border-workable-dark-green/20 transition-all duration-300 flex flex-col justify-between h-full group">
@@ -33,13 +31,7 @@ const JobCard = ({ job }) => {
                         <div className="text-sm font-bold text-workable-text-muted">No Image Available</div>
                     )}
 
-                    <button
-                        onClick={() => setIsSaved(!isSaved)}
-                        className="absolute top-3 right-3 p-2.5 rounded-xl bg-white/80 backdrop-blur-md hover:bg-white text-workable-text-dark shadow-sm transition-all duration-200 cursor-pointer select-none z-10"
-                    >
-                        <FaBookmark className="text-sm text-workable-dark-green scale-110 transition-transform" />
-
-                    </button>
+                    <SavedButton job={job} email={email} allSavedJob={allSavedJob}/>
 
                     <span className="absolute bottom-3 left-3 inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-heading font-black uppercase tracking-wider bg-white/90 backdrop-blur-sm text-workable-dark-green shadow-sm">
                         {type}
@@ -98,7 +90,7 @@ const JobCard = ({ job }) => {
                         </button>
                     </Link>
 
-                    <ApplyButton job={job} email={email}/>
+                    <ApplyButton job={job} email={email} allAppliedJob={allAppliedJob}/>
                 </div>
             </div>
 
