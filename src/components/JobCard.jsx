@@ -31,7 +31,10 @@ const JobCard = ({ job, email, allAppliedJob, allSavedJob }) => {
                         <div className="text-sm font-bold text-workable-text-muted">No Image Available</div>
                     )}
 
-                    <SavedButton job={job} email={email} allSavedJob={allSavedJob}/>
+                    {/* ⚡ SavedButton position patch: Wrapped in a clean absolute layer at the top right */}
+                    <div className="absolute top-3 right-3 z-10 flex items-center justify-center">
+                        <SavedButton job={job} email={email} allSavedJob={allSavedJob}/>
+                    </div>
 
                     <span className="absolute bottom-3 left-3 inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-heading font-black uppercase tracking-wider bg-white/90 backdrop-blur-sm text-workable-dark-green shadow-sm">
                         {type}
@@ -83,14 +86,17 @@ const JobCard = ({ job, email, allAppliedJob, allSavedJob }) => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2.5 w-full">
-                    <Link href={`/explore_jobs/${_id}`} className="w-full">
+                {/* ⚡ ApplyButton grid position patch: Added w-full wrapper matching the Details Link block */}
+                <div className="grid grid-cols-2 gap-2.5 w-full items-center justify-stretch">
+                    <Link href={`/explore_jobs/${_id}`} className="w-full flex">
                         <button className="w-full bg-workable-bg hover:bg-workable-dark-green/25 text-workable-text-dark font-heading text-[11px] uppercase tracking-wider font-bold py-2.5 rounded-xl transition-all duration-300 border border-workable-text-muted/20 select-none cursor-pointer text-center">
                             Details
                         </button>
                     </Link>
 
-                    <ApplyButton job={job} email={email} allAppliedJob={allAppliedJob}/>
+                    <div className="w-full flex [&>*]:w-full">
+                        <ApplyButton job={job} email={email} allAppliedJob={allAppliedJob}/>
+                    </div>
                 </div>
             </div>
 

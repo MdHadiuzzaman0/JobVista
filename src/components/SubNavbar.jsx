@@ -3,17 +3,38 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { Badge } from "@heroui/react";
+import { useEffect } from "react";
 
 const SubNavbar = () => {
     const pathname = usePathname();
     const { data: session } = authClient.useSession();
     const user = session?.user;
+    
+    const [appliedCount, setAppliedCount] = useState(0);
+    const [savedCount, setSavedCount] = useState(0);
+
+    useEffect(() => {
+        async function fetchCounts() {
+            if (user?.email) {
+                try {
+                    const appliedData = await getAppliedJobs(user.email);
+                    const savedData = await getSavedJobs(user.email);
+                    setAppliedCount(appliedData?.length || 0);
+                    setSavedCount(savedData?.length || 0);
+                } catch (error) {
+                    console.error("Failed to fetch sub-navbar counts:", error);
+                }
+            }
+        }
+        fetchCounts();
+    }, [user?.email]); 
+
     if (!session) return null;
     
     const seekerLinks = [
-        { name: "Applied", href: "/applied_jobs", count: null },
-        { name: "Saved", href: "/saved_jobs", count: null },
-        { name: "Profile", href: "/profile", count: null },
+        { name: "Applied", href: "/applied_jobs", count: appliedCount },
+        { name: "Saved", href: "/saved_jobs", count: savedCount },
+        { name: "Profile", href: "/profile", count: 0 },
     ];
 
     const recruiterLinks = [
