@@ -10,10 +10,22 @@ export const getJobById = async (id) => {
 
 export async function getAppliedJobs(email) {
   try {
-    const res = await fetch(`http://localhost:8000/appliedData/${email}`, { cache: "no-store" });
+    const res = await fetch(`http://localhost:8000/applied_jobs/${email}`, { cache: "no-store" });
     if (!res.ok) return [];
     return res.json();
   } catch (error) {
     return [];
   }
 }
+
+export async function getSavedJobs(email) {
+  try {
+    const res = await fetch(`http://localhost:8000/saved_jobs/${email}`, { cache: "no-store" });
+    if (!res.ok) return [];
+    return res.json();
+  } catch (error) {
+    return [];
+  }
+}
+
+

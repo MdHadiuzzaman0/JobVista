@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
       <body className="font-body antialiased">
         <Navbar />
         <SubNavbar />
-        <ToastContainer position="top-center" autoClose={1200} />
+        <ToastContainer position="top-right" autoClose={1200} />
         <main>
         {children}
         </main>

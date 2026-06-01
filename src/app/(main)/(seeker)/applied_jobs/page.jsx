@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { FiMapPin, FiClock, FiTrash2, FiBriefcase } from "react-icons/fi";
 import { getAppliedJobs } from "@/lib/data";
 import { Button } from "@heroui/react";
+import AppliedDeleteButton from "@/components/AppliedDeleteButton";
 
 export default async function AppliedJobsPage() {
   const session = await auth.api.getSession({
@@ -12,7 +13,7 @@ export default async function AppliedJobsPage() {
   const appliedJobs = email ? await getAppliedJobs(email) : [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 py-12 px-4 md:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 mt-20 py-12 px-4 md:px-8">
       <div className="max-w-5xl mx-auto">
 
         {appliedJobs.length === 0 ? (
@@ -73,12 +74,7 @@ export default async function AppliedJobsPage() {
                     </div>
 
                     <div className="shrink-0">
-                      <Button
-                        type="submit"
-                        className="p-3 text-gray-400 bg-workable-dark-green hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all cursor-pointer flex items-center justify-center"
-                      >
-                        <FiTrash2 size={18} />
-                      </Button>
+                      <AppliedDeleteButton jobId={_id} jobTitle={title}/>
                     </div>
 
                   </div>

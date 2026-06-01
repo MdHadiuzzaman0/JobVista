@@ -1,14 +1,19 @@
 "use client";
 import { useState } from "react";
+import { useSession } from "@/lib/auth-client";
 import Link from "next/link";
 import { HiOutlineLocationMarker, HiOutlineFolderOpen } from "react-icons/hi";
 import { FiClock } from "react-icons/fi";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import Image from "next/image";
+import ApplyButton from '@/components/ApplyButton'
 
 const JobCard = ({ job }) => {
     const { _id, title, category, company, location, type, salaryMin, salaryMax, currency, deadline } = job;
     const currencySymbol = currency === "USD" ? "$" : "৳";
+
+    const { data: session, isPending, error } = useSession()
+    const email = session?.user?.email;
 
     return (
         <div className="bg-white border border-workable-text-muted/10 rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:border-workable-dark-green/20 transition-all duration-300 flex flex-col justify-between h-full group">
@@ -93,11 +98,7 @@ const JobCard = ({ job }) => {
                         </button>
                     </Link>
 
-                    <Link href={`/explore_jobs/${_id}`} className="w-full">
-                        <button className="w-full bg-workable-dark-green hover:bg-workable-dark-green/90 text-white font-heading text-[11px] uppercase tracking-wider font-bold py-2.5 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md shadow-workable-dark-green/10 select-none cursor-pointer text-center">
-                            Apply Now
-                        </button>
-                    </Link>
+                    <ApplyButton job={job} email={email}/>
                 </div>
             </div>
 
