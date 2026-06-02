@@ -33,10 +33,10 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-center hidden lg:flex">
-        <ul className="flex items-center gap-1">
+        <ul className="flex items-center gap-3">
           <li><NavLink href="/">Home</NavLink></li>
           <li><NavLink href="/explore_jobs">Explore Jobs</NavLink></li>
-          <li><NavLink href="/companies">Browse Companies</NavLink></li>
+          <li><NavLink href="/companies"> Companies</NavLink></li>
           <li><NavLink href="/resources">Resources</NavLink></li>
         </ul>
       </div>
