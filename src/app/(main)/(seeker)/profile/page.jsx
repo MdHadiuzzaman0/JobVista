@@ -1,14 +1,21 @@
-"use client";
 // import ProfileHeader from "@/components/ProfileHeader";
 import Subscription from "@/components/Subscription";
+import PromotionalSection from "@/components/PromotionalSection";
+import ProfileProgressWidget from "@/components/ProfileProgressWidget";
+import { auth } from "@/lib/auth"; 
+import { headers } from "next/headers";
 
-export default function ProfileDashboardPage({ user, profileData }) {
+async function ProfileDashboardPage({ user, profileData }) {
+  const session = await auth.api.getSession({
+    headers: await headers() 
+})
+const user = session?.user;
   return (
     <div className="min-h-screen bg-gray-50/50 text-workable-text-dark font-sans antialiased p-4 md:p-6 lg:p-8">
-      <div className="max-w-[1600px] mx-auto">
+      <div className="max-w-[1800px] mx-auto">
         
         {/* 0. Top Common Component: Reusing your premium profile header */}
-        {/* <ProfileHeader user={user} profileData={profileData} /> */}
+        <DashboardHeading user={user}/>
 
         {/* Outer Layout Grid: Sidebar vs Content panels */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mt-6">
@@ -91,22 +98,10 @@ export default function ProfileDashboardPage({ user, profileData }) {
           <aside className="lg:col-span-3 space-y-6">
             
             {/* Block 1: Profile Completeness Checklist Container */}
-            <div className="bg-white border border-workable-text-muted/10 rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.01)] flex flex-col">
-              <div className="border-b border-gray-100 pb-3 mb-4">
-                <span className="text-[11px] uppercase font-heading font-black tracking-wider text-workable-text-dark">Your Profile Progress</span>
-              </div>
-              <div className="min-h-[350px] w-full border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50 flex flex-col items-center justify-center p-4 text-center">
-                <span className="text-xs font-semibold font-heading uppercase tracking-widest text-gray-400">[Completeness Progress Gauge & Checklists]</span>
-                <p className="text-[10px] text-gray-400 mt-2 max-w-[200px]">Radial progress circle indicating data completion logs goes here.</p>
-              </div>
-            </div>
+            <ProfileProgressWidget />
 
             {/* Block 2: Promotional Premium Banner Widget */}
-            <div className="bg-gradient-to-br from-emerald-600 to-workable-dark-green rounded-2xl p-5 text-white shadow-md relative overflow-hidden min-h-[160px] flex flex-col justify-between">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full translate-x-8 -translate-y-8" />
-              <span className="text-[10px] uppercase font-heading font-black tracking-wider text-emerald-100">PROMO AD CONTAINER</span>
-              <p className="text-xs font-medium text-emerald-50/80 mt-4">[Premium ecosystem upgrade CTA layout placeholder]</p>
-            </div>
+            <PromotionalSection />
 
             {/* Block 3: App Download Appended Section (QR Codes Wrapper) */}
             <div className="bg-white border border-workable-text-muted/10 rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.01)] min-h-[130px]">
@@ -121,3 +116,5 @@ export default function ProfileDashboardPage({ user, profileData }) {
     </div>
   );
 }
+
+export default ProfileDashboardPage

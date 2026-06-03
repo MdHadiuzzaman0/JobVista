@@ -1,31 +1,41 @@
 import Link from "next/link";
-import { FiTrendingUp, FiZap, FiAward, FiArrowUpRight } from "react-icons/fi";
+import { FiTrendingUp, FiZap, FiArrowUpRight } from "react-icons/fi";
+import { FaCrown } from "react-icons/fa";
+import { getSavedJobs } from "@/lib/data";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-export default function CurrentPlanWidget({ planType = "Free", usageCount = 4 }) {
-  // 1. Dynamic Plan Configurations based on image_8be27c.png & image_8be80.png
+export default async function CurrentPlanWidget({ planType = "Free" }) {
+const session = await auth.api.getSession({
+  headers: await headers()
+});
+  const email = session?.user.email
+  const savedJob = await getSavedJobs(email);
+  const usageCount = savedJob.length;
+  console.log(usageCount)
   const planConfigs = {
     Free: {
       name: "Free Tier",
       desc: `${usageCount}/10 saved jobs used`,
-      icon: <FiTrendingUp className="text-emerald-500" size={16} />,
-      badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-100",
-      borderAccent: "border-t-emerald-500",
+      icon: <FiTrendingUp className="text-workable-dark-green shrink-0" size={14} />,
+      badgeClass: "bg-workable-dark-green/10 text-workable-dark-green border-workable-dark-green/20",
+      borderAccent: "border-t-workable-dark-green",
       ctaText: "Upgrade to Pro",
     },
     Pro: {
       name: "Pro Member",
       desc: "Unlimited applies & saves active",
-      icon: <FiZap className="text-amber-500" size={16} />,
-      badgeClass: "bg-amber-50 text-amber-700 border-amber-100",
-      borderAccent: "border-t-amber-500",
-      ctaText: "Go Enterprise",
+      icon: <FiZap className="text-ocean-slate-light shrink-0" size={14} />,
+      badgeClass: "bg-ocean-slate-light/10 text-ocean-slate-light border-ocean-slate-light/20",
+      borderAccent: "border-t-ocean-slate-light",
+      ctaText: "Go to Enterprise",
     },
     Enterprise: {
       name: "Enterprise",
-      desc: "Full analytics & job posts active",
-      icon: <FiAward className="text-purple-500" size={16} />,
-      badgeClass: "bg-purple-50 text-purple-700 border-purple-100",
-      borderAccent: "border-t-purple-500",
+      desc: "All power analytics & job posts active",
+      icon: <FaCrown className="text-workable-text-dark shrink-0" size={14} />,
+      badgeClass: "bg-workable-text-dark/10 text-workable-text-dark border-workable-text-dark/20",
+      borderAccent: "border-t-workable-text-dark",
       ctaText: "Manage Billing",
     },
   };
@@ -33,43 +43,46 @@ export default function CurrentPlanWidget({ planType = "Free", usageCount = 4 })
   const currentPlan = planConfigs[planType] || planConfigs.Free;
 
   return (
-    <div className={`bg-white border border-slate-100 rounded-2xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.015)] min-h-[140px] flex flex-col justify-between border-t-4 ${currentPlan.borderAccent} transition-all duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.03)] group relative overflow-hidden`}>
+    <div className={`bg-workable-bg border border-workable-slate/40 rounded-2xl p-5 shadow-md shadow- min-h-[150px] flex flex-col justify-between border-t-4 ${currentPlan.borderAccent} relative overflow-hidden w-full transition-all duration-300 hover:border-workable-slate/80`}>
       
-      {/* Subtle Background Radial Glow on Hover */}
-      <div className="absolute -right-10 -top-10 w-24 h-24 bg-slate-50 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      {/* Background Subtle Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-workable-primary/10 to-transparent pointer-events-none" />
 
       {/* Top Section: Header & Badge */}
-      <div className="flex items-start justify-between gap-3 relative z-10">
-        <div className="space-y-0.5">
-          <span className="text-[9px] uppercase font-heading font-black tracking-widest text-slate-400">
+      <div className="w-full space-y-3 relative z-10">
+        <div className="flex items-center justify-between w-full gap-2">
+          <span className="text-[9px] uppercase font-heading font-black tracking-widest text-workable-text-muted">
             Account Status
           </span>
-          <h3 className="font-heading font-black text-sm text-workable-text-dark flex items-center gap-1.5">
-            {currentPlan.icon}
+          <span className={`text-[9px] font-sans font-bold px-2 py-0.5 rounded-full border shrink-0 backdrop-blur-sm ${currentPlan.badgeClass}`}>
+            Active
+          </span>
+        </div>
+
+        {/* Title and Icon */}
+        <div className="flex items-center gap-2 min-w-0">
+          {currentPlan.icon}
+          <h3 className="font-heading font-black text-sm text-workable-text-dark truncate">
             {currentPlan.name}
           </h3>
         </div>
-        
-        {/* Minimal Status Capsule */}
-        <span className={`text-[10px] font-sans font-bold px-2 py-0.5 rounded-full border ${currentPlan.badgeClass}`}>
-          Active
-        </span>
       </div>
 
-      {/* Bottom Section: Dynamic Usage/Timeline Details & Premium CTA */}
-      <div className="flex items-end justify-between gap-2 pt-2 relative z-10 border-t border-slate-50">
-        <p className="text-[11px] text-slate-400 font-medium font-sans leading-tight max-w-[160px]">
+      {/* Bottom Section: Vertical Layout */}
+      <div className="flex flex-col gap-3 pt-3 border-t border-workable-slate/50 w-full relative z-10 mt-2">
+        {/* Usage description */}
+        <p className="text-[11px] text-workable-text-muted font-semibold font-sans leading-relaxed">
           {currentPlan.desc}
         </p>
 
-        {/* Floating Interactive Action Link */}
+        {/* Action Link Button */}
         <Link 
           href="/dashboard/billing"
-          className="flex items-center gap-1 text-[11px] font-heading font-black text-workable-text-dark hover:text-emerald-600 transition-colors shrink-0 group/btn"
+          className="flex items-center justify-between w-full text-[10px] font-heading font-black text-workable-text-dark hover:text-workable-dark-green transition-colors group bg-workable-primary/20 hover:bg-workable-primary/30 px-3 py-2 rounded-xl border border-workable-slate/40"
         >
           <span>{currentPlan.ctaText}</span>
-          <div className="w-5 h-5 rounded-md bg-slate-50 flex items-center justify-center border border-slate-100 group-hover/btn:bg-emerald-50 group-hover/btn:border-emerald-100 transition-all transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
-            <FiArrowUpRight size={11} className="text-slate-500 group-hover/btn:text-emerald-600 transition-colors" />
+          <div className="w-4 h-4 rounded-md bg-workable-bg flex items-center justify-center border border-workable-slate/60 group-hover:border-workable-dark-green/40 transition-all">
+            <FiArrowUpRight size={10} className="text-workable-text-muted group-hover:text-workable-dark-green transition-colors" />
           </div>
         </Link>
       </div>

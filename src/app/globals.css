@@ -3,18 +3,35 @@
 @import "@heroui/styles"; 
 
 @theme {
-  --color-workable-bg: #F3F2F7;
-  --color-workable-dark-green: #00624A;
-  --color-workable-primary: #008264;
-  --color-workable-slate: #2F2E4E;
-  --color-workable-text-dark: #1E242B;
-  --color-workable-text-muted: #656B73;
+  /* ==========================================
+     🌊 NEW CORE THEME (Active from now on)
+     ========================================== */
+  --color-workable-bg: #04202B;          /* Dark Ocean Base */
+  --color-workable-text-dark: #E4EDEC;   /* Mint Light Text */
+  --color-workable-text-muted: #5C7687;  /* Ocean Muted Gray/Blue */
+  --color-workable-dark-green: #039AA1;  /* Glowing Teal Accent */
+  --color-workable-primary: #056472;     /* Deep Sea Tone */
+  --color-workable-slate: #13404E;       /* Border / Structure Teal */
+
+  /* Extra Palette Variations (Just in case you need specific hex directly) */
+  --color-ocean-slate-light: #ADC3C9;
 
   --font-heading: var(--font-heading), sans-serif;
   --font-body: var(--font-body), sans-serif;
+
+  /* ==========================================
+     📦 BACKUP TO PREVENT OLD PAGES FROM BREAKING
+     ========================================== */
+  --color-old-bg: #F3F2F7;
+  --color-old-dark-green: #00624A;
+  --color-old-primary: #008264;
+  --color-old-slate: #2F2E4E;
+  --color-old-text-dark: #1E242B;
+  --color-old-text-muted: #656B73;
 }
 
+/* Global Body Override with the New Theme */
 body {
-  background-color: var(--color-workable-bg);
-  color: var(--color-workable-text-dark);
+  background-color: var(--color-workable-bg); /* Now refers to #04202B */
+  color: var(--color-workable-text-dark);     /* Now refers to #E4EDEC */
 }
