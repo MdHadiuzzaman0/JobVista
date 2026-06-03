@@ -1,7 +1,8 @@
 import { FiCheckCircle, FiCircle, FiTrendingUp, FiEdit3, FiDownload } from "react-icons/fi";
 import Link from "next/link";
+import { Button } from "@heroui/react";
 
-export default function ProfileProgressWidget({ percentage = 70 }) {
+export default function ProfileProgressWidget({ percentage = 70, setIsEditing }) {
   return (
     <div className="bg-workable-bg border border-workable-slate/40 rounded-2xl p-5 shadow-[0_12px_40px_rgba(4,32,43,0.2)] flex flex-col justify-between min-h-[440px] w-full">
       
@@ -39,13 +40,10 @@ export default function ProfileProgressWidget({ percentage = 70 }) {
 
       {/* 4️⃣ Edit Profile & Download CV Action Buttons */}
       <div className="grid grid-cols-2 gap-2 pb-2 w-full">
-        <Link 
-          href={`/profile/${id}`}
-          className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-workable-slate/60 bg-workable-slate/20 hover:bg-workable-slate/40 text-workable-text-dark text-[11px] font-heading font-black transition-all"
-        >
-          <FiEdit3 size={12} className="text-ocean-slate-light" />
-          <span>Edit Profile</span>
-        </Link>
+        <Button onClick={() => setIsEditing(true)}
+          className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-workable-slate/60 bg-workable-slate/20 hover:bg-workable-slate/40 text-workable-text-dark text-[11px] font-heading font-black transition-all cursor-pointer" >
+          <FiEdit3 size={12} className="text-ocean-slate-light" /> <span>Edit Profile</span>
+        </Button>
 
         <Link 
           href="/dashboard/profile/download-cv"

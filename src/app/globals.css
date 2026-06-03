@@ -7,14 +7,14 @@
      🌊 NEW CORE THEME (Active from now on)
      ========================================== */
   --color-workable-bg: #04202B;          /* Dark Ocean Base */
-  --color-workable-text-dark: #E4EDEC;   /* Mint Light Text */
+  --color-workable-text-dark: #A4CCF9;   /* Mint Light Text */
   --color-workable-text-muted: #5C7687;  /* Ocean Muted Gray/Blue */
   --color-workable-dark-green: #039AA1;  /* Glowing Teal Accent */
   --color-workable-primary: #056472;     /* Deep Sea Tone */
   --color-workable-slate: #13404E;       /* Border / Structure Teal */
 
   /* Extra Palette Variations (Just in case you need specific hex directly) */
-  --color-ocean-slate-light: #ADC3C9;
+  --color-ocean-slate-light: #A4CCF9;
 
   --font-heading: var(--font-heading), sans-serif;
   --font-body: var(--font-body), sans-serif;

@@ -2,21 +2,13 @@ import Link from "next/link";
 import { FiTrendingUp, FiZap, FiArrowUpRight } from "react-icons/fi";
 import { FaCrown } from "react-icons/fa";
 import { getSavedJobs } from "@/lib/data";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
 
-export default async function CurrentPlanWidget({ planType = "Free" }) {
-const session = await auth.api.getSession({
-  headers: await headers()
-});
-  const email = session?.user.email
-  const savedJob = await getSavedJobs(email);
-  const usageCount = savedJob.length;
-  console.log(usageCount)
+export default function CurrentPlanWidget({ savedCount=0 , planType = "Free" }) {
+  
   const planConfigs = {
     Free: {
       name: "Free Tier",
-      desc: `${usageCount}/10 saved jobs used`,
+      desc: `${savedCount.length}/10 saved jobs used`,
       icon: <FiTrendingUp className="text-workable-dark-green shrink-0" size={14} />,
       badgeClass: "bg-workable-dark-green/10 text-workable-dark-green border-workable-dark-green/20",
       borderAccent: "border-t-workable-dark-green",

@@ -1,7 +1,7 @@
 
 
-export default function ProfileHeader({ user, profileData }) {
-  const userName = profileData?.name || user?.name || "User";
+export default function ProfileHeader({ profileData }) {
+  const userName = profileData?.name || "User";
 
   return (
     <div className="w-full bg-white border border-gray-100 rounded-2xl p-6 shadow-sm mb-6">
