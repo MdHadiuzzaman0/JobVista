@@ -1,3 +1,4 @@
+import { updateProfileInfo } from "@/lib/action";
 import { useState } from "react";
 
 export default function PersonalInfo({ user }) {
@@ -16,8 +17,7 @@ export default function PersonalInfo({ user }) {
         permanentAddress: user?.permanentAddress || ""
     });
 
-   const handleFormSubmit = async (data) => {
-        // data.get("input_name") দিয়ে সরাসরি ভ্যালু লুফে নেওয়া
+    const handleFormSubmit = async (data) => {
         const updatedData = {
             firstName: data.get("firstName"),
             lastName: data.get("lastName"),
@@ -26,16 +26,16 @@ export default function PersonalInfo({ user }) {
             maritalStatus: data.get("maritalStatus"),
             presentAddress: data.get("presentAddress"),
             permanentAddress: data.get("permanentAddress"),
-            email: formData.email // ইমেইল যেহেতু ডিজেবলড, তাই আগের স্টেট থেকে নিলাম
+            email: formData.email
         };
-
         console.log("Saving via Form Action:", updatedData);
-        
-        // 💡 এখানে সরাসরি তোমার Server Action বা API কল করে দিতে পারবে
-        // await updateProfile(updatedData);
-
-        setFormData(updatedData);
-        setIsEditingPersonal(false);
+        const response = await updateProfileInfo({ updatedData, email: user?.email });
+        if (response.success) {
+            setFormData(updatedData);
+            setIsEditingPersonal(false);
+        } else {
+            alert("Failed to update profile: " + response.error);
+        }
     };
 
     return (
