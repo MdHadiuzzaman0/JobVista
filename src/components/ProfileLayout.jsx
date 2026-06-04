@@ -6,6 +6,7 @@ import ProfileProgressWidget from '@/components/ProfileProgressWidget';
 import PromotionalSection from '@/components/PromotionalSection';
 import ProfileHeader2 from "@/components/profileHeader2";
 import { useState } from 'react';
+import PersonalInfo from '@/components/PersonalInfo';
 
 // সার্ভার থেকে আসা user ডেটা প্রপ্স হিসেবে রিসিভ করছি
 export default function ProfileLayout({ user, savedCount }) {
@@ -121,30 +122,7 @@ export default function ProfileLayout({ user, savedCount }) {
                 <div className="border border-blue-200 rounded-xl p-6 bg-white space-y-6">
                   
                   {activeTab === 'personal' && (
-                    <div className="space-y-4">
-                      <div className="border border-gray-100 rounded-xl p-4 bg-gray-50/30">
-                        <div className="flex justify-between items-center border-b border-gray-100 pb-2 mb-4">
-                          <h4 className="font-bold text-sm text-gray-900">Personal Details</h4>
-                          <button className="text-xs font-bold text-pink-600 hover:underline">📝 Edit Section</button>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                          <div><span className="text-gray-400 block">First Name</span> <span className="font-medium text-gray-800">{user?.name || "Md. Hadiuzzaman"}</span></div>
-                          <div><span className="text-gray-400 block">Primary Mobile</span> <span className="font-medium text-gray-800">01794093742</span></div>
-                        </div>
-                        <div className="flex justify-end gap-2 mt-4 pt-3 border-t border-gray-100">
-                          <button className="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs font-semibold rounded-lg">Cancel</button>
-                          <button className="px-3 py-1.5 bg-pink-600 text-white text-xs font-semibold rounded-lg shadow-sm">Save Details</button>
-                        </div>
-                      </div>
-
-                      <div className="border border-gray-100 rounded-xl p-4 bg-gray-50/30">
-                        <div className="flex justify-between items-center border-b border-gray-100 pb-2 mb-4">
-                          <h4 className="font-bold text-sm text-gray-900">Address Details</h4>
-                          <button className="text-xs font-bold text-pink-600 hover:underline">📝 Edit Section</button>
-                        </div>
-                        <p className="text-xs text-gray-400 italic">No address details added yet.</p>
-                      </div>
-                    </div>
+                    <PersonalInfo user={user}/>
                   )}
 
                   {activeTab === 'education' && (
