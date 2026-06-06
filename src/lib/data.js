@@ -28,4 +28,15 @@ export async function getSavedJobs(email) {
   }
 }
 
+export async function getUserInfo(email) {
+  console.log(email)
+  try {
+    const res = await fetch(`http://localhost:8000/user/${email}`, { cache: "no-store" });
+    if (!res.ok) return [];
+    return res.json();
+  } catch (error) {
+    return [];
+  }
+}
+
 

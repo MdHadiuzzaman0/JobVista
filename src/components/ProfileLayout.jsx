@@ -9,7 +9,7 @@ import { useState } from 'react';
 import PersonalInfo from '@/components/PersonalInfo';
 
 // সার্ভার থেকে আসা user ডেটা প্রপ্স হিসেবে রিসিভ করছি
-export default function ProfileLayout({ user, savedCount }) {
+export default function ProfileLayout({ user, savedCount, userInfo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('personal');
 
@@ -122,7 +122,7 @@ export default function ProfileLayout({ user, savedCount }) {
                 <div className="border border-blue-200 rounded-xl p-6 bg-white space-y-6">
                   
                   {activeTab === 'personal' && (
-                    <PersonalInfo user={user}/>
+                    <PersonalInfo user={user} userInfo={userInfo}/>
                   )}
 
                   {activeTab === 'education' && (

@@ -11,7 +11,7 @@ export default function CreateProfileOfSeeker() {
                 {/* প্রথম ও শেষ নাম */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
-                        <label className="text-gray-700 font-semibold">
+                        <label className="text-black font-semibold">
                             First Name <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -23,7 +23,7 @@ export default function CreateProfileOfSeeker() {
                     </div>
 
                     <div className="flex flex-col gap-1.5">
-                        <label className="text-gray-700 font-semibold">Last Name</label>
+                        <label className="text-black font-semibold">Last Name</label>
                         <input
                             name="lastName"
                             placeholder="Enter your last name"
@@ -32,10 +32,19 @@ export default function CreateProfileOfSeeker() {
                     </div>
                 </div>
 
+                <div className="flex flex-col gap-1.5 w-full">
+                        <label className="text-black font-semibold">Email</label>
+                        <input
+                            name="email"
+                            placeholder="Enter your last name"
+                            className="w-full border border-gray-200 px-3 py-2 rounded-lg font-medium focus:border-pink-500 focus:outline-none bg-white text-xs"
+                        />
+                    </div>
+
                 {/* মোবাইল এবং এক্সপেরিয়েন্স */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
-                        <label className="text-gray-700 font-semibold">
+                        <label className="text-black font-semibold">
                             Primary Mobile <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -48,7 +57,7 @@ export default function CreateProfileOfSeeker() {
                     </div>
 
                     <div className="flex flex-col gap-1.5">
-                        <label className="text-gray-700 font-semibold">
+                        <label className="text-black font-semibold">
                             Years of Experience <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -62,7 +71,7 @@ export default function CreateProfileOfSeeker() {
 
                 {/* স্কিলস */}
                 <div className="flex flex-col gap-1.5">
-                    <label className="text-gray-700 font-semibold">
+                    <label className="text-black font-semibold">
                         Skills (Comma separated) <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -75,7 +84,7 @@ export default function CreateProfileOfSeeker() {
 
                 {/* পোর্টফোলিও */}
                 <div className="flex flex-col gap-1.5">
-                    <label className="text-gray-700 font-semibold">Portfolio / GitHub URL</label>
+                    <label className="text-black font-semibold">Portfolio / GitHub URL</label>
                     <input
                         name="portfolio"
                         type="url"
@@ -86,7 +95,7 @@ export default function CreateProfileOfSeeker() {
 
                 {/* বর্তমান ঠিকানা */}
                 <div className="flex flex-col gap-1.5">
-                    <label className="text-gray-700 font-semibold">Present Address</label>
+                    <label className="text-black font-semibold">Present Address</label>
                     <input
                         name="presentAddress"
                         placeholder="Enter your current address"
@@ -96,7 +105,7 @@ export default function CreateProfileOfSeeker() {
 
                 {/* লিঙ্গ */}
                 <div className="flex flex-col gap-1.5">
-                    <label className="text-gray-700 font-semibold">
+                    <label className="text-black font-semibold">
                         Gender <span className="text-red-500">*</span>
                     </label>
                     <select
@@ -113,7 +122,7 @@ export default function CreateProfileOfSeeker() {
 
                 {/* বৈবাহিক অবস্থা */}
                 <div className="flex flex-col gap-1.5">
-                    <label className="text-gray-700 font-semibold">
+                    <label className="text-black font-semibold">
                         Marital Status <span className="text-red-500">*</span>
                     </label>
                     <select
@@ -130,7 +139,7 @@ export default function CreateProfileOfSeeker() {
 
                 {/* স্থায়ী ঠিকানা */}
                 <div className="flex flex-col gap-1.5">
-                    <label className="text-gray-700 font-semibold">Permanent Address</label>
+                    <label className="text-black font-semibold">Permanent Address</label>
                     <input
                         name="permanentAddress"
                         placeholder="Enter your permanent address"
@@ -140,7 +149,7 @@ export default function CreateProfileOfSeeker() {
 
                 {/* বায়ো */}
                 <div className="flex flex-col gap-1.5">
-                    <label className="text-gray-700 font-semibold">Professional Summary</label>
+                    <label className="text-black font-semibold">Professional Summary</label>
                     <textarea
                         name="bio"
                         rows={3}

@@ -6,15 +6,21 @@ import { useRouter } from "next/navigation";
 import { FiLogOut, FiChevronDown } from "react-icons/fi";
 import { useState, useRef, useEffect } from "react";
 
-const NavbarRight = () => {
+const NavbarRight = ({ session, userInfo }) => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
-    const { data: session, isPending } = authClient.useSession();
-    const user = session?.user;
+    // ওল্ড সেশন ইউজার (ফলব্যাক ব্যাকআপ)
+    const sessionUser = session?.user;
 
-    // outside click এ বন্ধ হবে
+    // 🎯 ডাটাবেজ প্রোফাইল থাকলে সেটা দেখাবে, না থাকলে সাইন-আপের ডিফল্ট ডাটা দেখাবে
+    const displayName = userInfo?.name || sessionUser?.name || "User";
+    const displayImage = userInfo?.image || sessionUser?.image;
+    const displayRole = userInfo?.role; // সরাসরি DB কালেকশনের রোল
+
+    console.log(userInfo, displayRole)
+
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -25,20 +31,13 @@ const NavbarRight = () => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    if (isPending) {
-        return (
-            <div className="text-workable-text-muted font-mono text-xs animate-pulse">
-                Loading....
-            </div>
-        );
-    }
-
     async function logout() {
         await authClient.signOut();
         router.push("/login");
         router.refresh();
     }
 
+    // ── MENU CONFIGURATIONS ──
     const defaultItems = [
         { id: "home", label: "Home", href: "/" },
         { id: "explore_jobs", label: "Explore Jobs", href: "/explore_jobs" },
@@ -59,13 +58,14 @@ const NavbarRight = () => {
         { id: "applicants", label: "Applicants", href: "/applicants" },
     ];
     
-    if (!user?.role){
-         menuItems = defaultItems;
-    } else if (user?.role === "seeker") {
-        menuItems = seekerItems;
-    } else if (user?.role === "recruiter") {
-        menuItems = recruiterItems;
-    }
+    // 🎯 তোমার সেই খতরনাক কন্ডিশনাল টার্নারি লজিক
+    const menuItems = !displayRole 
+        ? defaultItems 
+        : displayRole === "seeker" 
+            ? seekerItems 
+            : recruiterItems;
+            console.log(menuItems)
+            console.log(displayRole)
 
     return (
         <div className="flex items-center gap-4">
@@ -110,12 +110,12 @@ const NavbarRight = () => {
                                 ${isOpen ? "ring-workable-dark-green/30" : "ring-transparent"}`}
                             >
                                 <Avatar.Image
-                                    alt={user?.name || "User"}
-                                    src={user?.image}
+                                    alt={displayName}
+                                    src={displayImage}
                                     className="rounded-full object-cover"
                                 />
                                 <Avatar.Fallback className="rounded-full bg-workable-dark-green text-white font-heading font-bold text-xs">
-                                    {user?.name?.charAt(0)}
+                                    {displayName.charAt(0)}
                                 </Avatar.Fallback>
                             </Avatar>
                         </div>
@@ -123,11 +123,10 @@ const NavbarRight = () => {
                         {/* Name + role */}
                         <div className="flex flex-col text-left">
                             <span className="text-xs font-body text-workable-text-dark font-bold tracking-wide leading-tight">
-                                {user?.name}
+                                {displayName}
                             </span>
-                            {/* 🎯 রোল না থাকলে সুন্দর করে "New Member" বা "Guest" টেক্সট দেখাবে */}
                             <span className="text-[9px] font-mono uppercase tracking-widest text-workable-primary font-bold leading-tight">
-                                {user?.role || "New Member"}
+                                {displayRole || "New Member"}
                             </span>
                         </div>
 

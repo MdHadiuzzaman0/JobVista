@@ -1,8 +1,18 @@
 import Link from 'next/link';
 import NavLink from '@/components/NavLink';
 import NavbarRight from './NavbarRight';
+import { getUserInfo } from '@/lib/data';
+import { auth } from "@/lib/auth"
+import { headers } from "next/headers";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const session = await auth.api.getSession({
+    headers: await headers()
+})
+  const user = session?.user;
+  const userInfo = await getUserInfo(user?.email)
+  console.log(session, user?.email, userInfo)
+
   return (
     <div className="navbar px-6 fixed lg:sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-[#E5E4EA]/60 font-body">
 
@@ -42,7 +52,7 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-end">
-      <NavbarRight />
+      <NavbarRight session={session} userInfo={userInfo}/>
       </div>
 
     </div>
