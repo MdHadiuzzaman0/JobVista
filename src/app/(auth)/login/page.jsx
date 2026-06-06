@@ -26,7 +26,7 @@ export default function LoginPage() {
                 toast.error(error.message || "Invalid credentials. Please try again.");
             } else {
                 toast.success('Logged in successfully!');
-                router.push('/');
+                router.push('/create_profile');
                 router.refresh();
             }
         } catch (err) {
@@ -41,7 +41,7 @@ export default function LoginPage() {
         try {
             await authClient.signIn.social({
                 provider: "google",
-                callbackURL: "/",
+                callbackURL: "/warning",
             });
         } catch (err) {
             toast.error("Google sign-in failed.");

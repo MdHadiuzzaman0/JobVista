@@ -12,6 +12,10 @@ const SubNavbar =  async() => {
     const user = session?.user;
      if (!user) return null;
 
+    if (user?.role !== "recruiter" && user?.role !== "seeker") {
+        return null;
+    }
+
     const appliedData = await getAppliedJobs(user.email);
     const savedData = await getSavedJobs(user.email);
 

@@ -39,6 +39,11 @@ const NavbarRight = () => {
         router.refresh();
     }
 
+    const defaultItems = [
+        { id: "home", label: "Home", href: "/" },
+        { id: "explore_jobs", label: "Explore Jobs", href: "/explore_jobs" },
+    ];
+
     const seekerItems = [
         { id: "profile", label: "Profile", href: "/profile" },
         { id: "explore_jobs", label: "Explore Jobs", href: "/explore_jobs" },
@@ -53,13 +58,19 @@ const NavbarRight = () => {
         { id: "post_job", label: "Post Job", href: "/post_job" },
         { id: "applicants", label: "Applicants", href: "/applicants" },
     ];
-
-    const menuItems = user?.role === "recruiter" ? recruiterItems : seekerItems;
+    
+    if (!user?.role){
+         menuItems = defaultItems;
+    } else if (user?.role === "seeker") {
+        menuItems = seekerItems;
+    } else if (user?.role === "recruiter") {
+        menuItems = recruiterItems;
+    }
 
     return (
         <div className="flex items-center gap-4">
 
-            {/* ── GUEST ── */}
+            {/* ── GUEST (NOT LOGGED IN) ── */}
             {!session && (
                 <div className="flex items-center gap-4 font-heading text-sm uppercase tracking-wide">
                     <Link
@@ -114,8 +125,9 @@ const NavbarRight = () => {
                             <span className="text-xs font-body text-workable-text-dark font-bold tracking-wide leading-tight">
                                 {user?.name}
                             </span>
+                            {/* 🎯 রোল না থাকলে সুন্দর করে "New Member" বা "Guest" টেক্সট দেখাবে */}
                             <span className="text-[9px] font-mono uppercase tracking-widest text-workable-primary font-bold leading-tight">
-                                {user?.role || "Member"}
+                                {user?.role || "New Member"}
                             </span>
                         </div>
 
