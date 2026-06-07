@@ -33,7 +33,7 @@ function ApplyButton({ job, email, allAppliedJob }) {
       });
       toast.success(`Successfully applied to ${title}`);
       setApplyValue(true);
-      router.refresh();
+      // router.refresh();
     } else {
       toast.error("Something went wrong!");
     }

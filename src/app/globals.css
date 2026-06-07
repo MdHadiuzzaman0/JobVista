@@ -6,15 +6,13 @@
   /* ==========================================
      🌊 NEW CORE THEME (Active from now on)
      ========================================== */
-  --color-workable-bg: #04202B;          /* Dark Ocean Base */
-  --color-workable-text-dark: #A4CCF9;   /* Mint Light Text */
-  --color-workable-text-muted: #5C7687;  /* Ocean Muted Gray/Blue */
-  --color-workable-dark-green: #039AA1;  /* Glowing Teal Accent */
-  --color-workable-primary: #056472;     /* Deep Sea Tone */
-  --color-workable-slate: #13404E;       /* Border / Structure Teal */
-
-  /* Extra Palette Variations (Just in case you need specific hex directly) */
-  --color-ocean-slate-light: #A4CCF9;
+--color-workable-bg: #04202B;           /* Dark Ocean Base — ঠিক আছে */
+--color-workable-text-dark: #E8F4FD;    /* উজ্জ্বল White-Blue — আগে ছিল A4CCF9, কম visible */
+--color-workable-text-muted: #7FA8BE;   /* একটু lighter — আগে ছিল 5C7687, অনেক dark */
+--color-workable-dark-green: #00BFC8;   /* Brighter Teal — আগে ছিল 039AA1 */
+--color-workable-primary: #057A8A;      /* একটু lighter — আগে ছিল 056472 */
+--color-workable-slate: #1A5266;        /* Border — একটু lighter */
+--color-ocean-slate-light: #E8F4FD;     /* same as text-dark */
 
   --font-heading: var(--font-heading), sans-serif;
   --font-body: var(--font-body), sans-serif;

@@ -17,9 +17,7 @@ const NavbarRight = ({ session, userInfo }) => {
     // 🎯 ডাটাবেজ প্রোফাইল থাকলে সেটা দেখাবে, না থাকলে সাইন-আপের ডিফল্ট ডাটা দেখাবে
     const displayName = userInfo?.name || sessionUser?.name || "User";
     const displayImage = userInfo?.image || sessionUser?.image;
-    const displayRole = userInfo?.role; // সরাসরি DB কালেকশনের রোল
-
-    console.log(userInfo, displayRole)
+    const displayRole = userInfo?.role;
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -59,13 +57,7 @@ const NavbarRight = ({ session, userInfo }) => {
     ];
     
     // 🎯 তোমার সেই খতরনাক কন্ডিশনাল টার্নারি লজিক
-    const menuItems = !displayRole 
-        ? defaultItems 
-        : displayRole === "seeker" 
-            ? seekerItems 
-            : recruiterItems;
-            console.log(menuItems)
-            console.log(displayRole)
+    const menuItems = !displayRole ? defaultItems : displayRole === "seeker"  ? seekerItems : recruiterItems;
 
     return (
         <div className="flex items-center gap-4">

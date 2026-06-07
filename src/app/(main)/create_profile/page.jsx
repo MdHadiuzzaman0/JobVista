@@ -31,7 +31,7 @@ export default function CreateProfilePage({ sessionUser }) {
   };
 
   return (
-    <div className="max-w-2xl min-h-screen mx-auto p-6 bg-white rounded-2xl shadow-sm border mt-10 text-xs">
+    <div className="max-w-5xl min-h-screen mx-auto p-6 bg-white rounded-2xl shadow-sm border mt-10 text-xs">
       <h2 className="text-lg font-bold mb-6">Complete Your Profile</h2>
 
       <form onSubmit={handleProfileSubmit} className="space-y-6">
@@ -64,7 +64,7 @@ export default function CreateProfilePage({ sessionUser }) {
         {/* SUBMIT BUTTON */}
         {selectedRole && (
           <button type="submit" className="w-full bg-gray-900 text-white py-2.5 rounded-lg font-bold hover:bg-gray-800 transition-colors">
-            Save & Complete Registration
+            Save Profile
           </button>
         )}
 

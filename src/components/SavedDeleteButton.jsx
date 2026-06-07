@@ -1,24 +1,21 @@
 'use client';
 import { AlertDialog, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
-import { handleDeleteAppliedJob } from "@/lib/action";
+import { handleDeleteSavedJob } from "@/lib/action";
 import {toast} from "react-toastify";
 import { useState } from "react";
 
 const DeleteButton = ({ jobId, jobTitle }) => {
 const router = useRouter();
-const [isDeleting, setIsDeleting] = useState(false);
 
 async function onDelete() {
-    setIsDeleting(true);
-    const result = await handleDeleteAppliedJob(jobId);
+    const result = await handleDeleteSavedJob(jobId);
     if (result.success) {
       toast.success(`${jobTitle} is removed!`);
-      router.refresh()
+      router.refresh();
     } else {
       toast.error("Failed to remove job!");
     }
-    setIsDeleting(false);
   }
 
     return (
@@ -43,7 +40,7 @@ async function onDelete() {
                                 Cancel
                             </Button>
                             <Button slot="close" variant="danger" onPress={onDelete}>
-                               {isDeleting ? "Deleting..." : "Delete"}
+                            Delete
                             </Button>
                         </AlertDialog.Footer>
                     </AlertDialog.Dialog>

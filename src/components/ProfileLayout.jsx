@@ -1,5 +1,4 @@
-'use client'; // 👈 এটি ক্লায়েন্টেই থাকবে স্টেটের জন্য
-
+'use client'; 
 import ProfileHeader from '@/components/ProfileHeader';
 import Subscription from '@/components/Subscription';
 import ProfileProgressWidget from '@/components/ProfileProgressWidget';
@@ -7,11 +6,17 @@ import PromotionalSection from '@/components/PromotionalSection';
 import ProfileHeader2 from "@/components/profileHeader2";
 import { useState } from 'react';
 import PersonalInfo from '@/components/PersonalInfo';
+import EducationInfo from '@/components/EducationInfo';
+import EmploymentInfo from '@/components/EmploymentInfo';
+import SkillsAndLinksInfo from '@/components/SkillsAndLinksInfo';
 
-// সার্ভার থেকে আসা user ডেটা প্রপ্স হিসেবে রিসিভ করছি
 export default function ProfileLayout({ user, savedCount, userInfo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('personal');
+
+  const userFullName = userInfo?.firstName 
+    ? `${userInfo.firstName} ${userInfo.lastName || ""}`.trim() 
+    : (user?.name || "User Profile");
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 font-sans antialiased p-4 md:p-6">
@@ -23,8 +28,9 @@ export default function ProfileLayout({ user, savedCount, userInfo }) {
             <div className="w-20 h-20 bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full p-1 mb-2">
               <div className="w-full h-full bg-gray-200 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-gray-500">75%</div>
             </div>
-            {/* 🎯 সার্ভার থেকে আসা ডাইনামিক নাম ব্যবহার করতে পারিস */}
-            <h3 className="font-bold text-gray-950 text-sm">{user?.name || "Md. Hadiuzzaman"}</h3>
+            
+            {/* 🎯 এখানে ডাইনামিক ফুল নেম শো করবে */}
+            <h3 className="font-bold text-gray-950 text-sm tracking-tight">{userFullName}</h3>
             <span className="text-[10px] text-green-600 bg-green-50 px-2 py-0.5 rounded-full mt-1 font-medium">Get JobVista Pro</span>
           </div>
           
@@ -50,7 +56,7 @@ export default function ProfileLayout({ user, savedCount, userInfo }) {
         {/* RIGHT DYNAMIC CONTENT AREA */}
         <div className="flex-1">
           
-          {/* COMBO 1 VIEW */}
+          {/* COMBO 1 VIEW (DASHBOARD) */}
           {!isEditing && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               
@@ -58,7 +64,6 @@ export default function ProfileLayout({ user, savedCount, userInfo }) {
                 <ProfileHeader />
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {/* 🎯 সাবস্ক্রিপশন উইজেটে ইউজার ডেটা পাস করা হলো */}
                   <Subscription user={user} savedCount={savedCount}/>
 
                   <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
@@ -102,6 +107,7 @@ export default function ProfileLayout({ user, savedCount, userInfo }) {
                 
                 <ProfileHeader2 />
 
+                {/* TAB CONTROLS */}
                 <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-px">
                   {[
                     { id: 'personal', label: '👤 Personal Information' },
@@ -119,6 +125,7 @@ export default function ProfileLayout({ user, savedCount, userInfo }) {
                   ))}
                 </div>
 
+                {/* DYNAMIC TAB CONTENT AREA */}
                 <div className="border border-blue-200 rounded-xl p-6 bg-white space-y-6">
                   
                   {activeTab === 'personal' && (
@@ -126,28 +133,15 @@ export default function ProfileLayout({ user, savedCount, userInfo }) {
                   )}
 
                   {activeTab === 'education' && (
-                    <div className="border border-gray-100 rounded-xl p-4 bg-gray-50/30">
-                      <div className="flex justify-between items-center border-b border-gray-100 pb-2 mb-4">
-                        <h4 className="font-bold text-sm text-gray-900">Academic Degrees</h4>
-                        <button className="text-xs font-bold text-pink-600 hover:underline">➕ Add Education</button>
-                      </div>
-                      <div className="text-xs space-y-2">
-                        <p className="font-semibold text-gray-800">B.Sc. in Textile Engineering</p>
-                        <p className="text-gray-500">Khulna University of Engineering & Technology (KUET) | CGPA: 3.53</p>
-                      </div>
-                    </div>
+                    <EducationInfo user={user} userInfo={userInfo} />
                   )}
 
                   {activeTab === 'employment' && (
-                    <div className="text-center py-8 text-xs text-gray-400">
-                      💼 Employment / Industrial Attachment History Section.
-                    </div>
+                    <EmploymentInfo user={user} userInfo={userInfo} />
                   )}
 
                   {activeTab === 'skills' && (
-                    <div className="text-center py-8 text-xs text-gray-400">
-                      🛠️ Skills, Portfolio Links and Languages Section.
-                    </div>
+                    <SkillsAndLinksInfo user={user} userInfo={userInfo} />
                   )}
 
                 </div>

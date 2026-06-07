@@ -10,9 +10,7 @@ export default async function ProfileDashboard() {
   });
   const user = session?.user;
   const savedCount = await getSavedJobs(user?.email)
-
   const userInfo = await getUserInfo(user?.email)
-
   
   return (
     <ProfileLayout user={user} savedCount={savedCount} userInfo={userInfo}/>

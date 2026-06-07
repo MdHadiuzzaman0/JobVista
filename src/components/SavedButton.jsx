@@ -21,7 +21,7 @@ function SaveButton({ job, email, allSavedJob }) {
       if (result.success) {
         setSaveValue(false); 
         toast.error(`${title} removed!`);
-        router.refresh();    
+        // router.refresh();    
       }
     } else {
       const { _id, ...jobWithoutId } = job; 
@@ -30,7 +30,7 @@ function SaveButton({ job, email, allSavedJob }) {
       if (result.success) {
         setSaveValue(true); 
         toast.success(`${title} saved!`);
-        router.refresh();   
+        // router.refresh();   
       }
     }
   }

@@ -1,20 +1,18 @@
 import { updateProfileInfo } from "@/lib/action";
 import { useState } from "react";
 
-export default function PersonalInfo({ user }) {
+export default function PersonalInfo({ userInfo, user }) {
     const [isEditingPersonal, setIsEditingPersonal] = useState(false);
-
-    // ডিফল্ট ভ্যালু সব ফাঁকা থাকবে, যদি ডাটাবেজ/প্রপ্স থেকে ডেটা না আসে
+    
     const [formData, setFormData] = useState({
-        firstName: user?.name?.split(" ")[0] || "",
-        lastName: user?.name?.split(" ").slice(1).join(" ") || "",
-        mobile: user?.phone || "", // যদি প্রপ্সে ফোন থাকে
-        email: user?.email || "",
-        gender: user?.gender || "",
-        religion: user?.religion || "",
-        maritalStatus: user?.maritalStatus || "",
-        presentAddress: user?.presentAddress || "",
-        permanentAddress: user?.permanentAddress || ""
+        firstName: userInfo?.firstName || "",
+        lastName: userInfo?.lastName || "",
+        mobile: userInfo?.mobile || "", 
+        email: userInfo?.email || "",
+        gender: userInfo?.gender || "",
+        maritalStatus: userInfo?.maritalStatus || "",
+        presentAddress: userInfo?.presentAddress || "",
+        permanentAddress: userInfo?.permanentAddress || ""
     });
 
     const handleFormSubmit = async (data) => {

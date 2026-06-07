@@ -2,7 +2,7 @@ import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { Badge } from "@heroui/react";
-import { getAppliedJobs, getSavedJobs } from "@/lib/data";
+import { getAppliedJobs, getSavedJobs, getUserInfo } from "@/lib/data";
 import NavLink from '@/components/NavLink'
 
 const SubNavbar =  async() => {
@@ -12,7 +12,9 @@ const SubNavbar =  async() => {
     const user = session?.user;
      if (!user) return null;
 
-    if (user?.role !== "recruiter" && user?.role !== "seeker") {
+    const dbUser = await getUserInfo(user.email);
+    const currentRole = dbUser?.role; 
+    if (currentRole !== "recruiter" && currentRole !== "seeker") {
         return null;
     }
 
@@ -32,7 +34,7 @@ const SubNavbar =  async() => {
         { name: "Company", href: "/company_profile", count: null },
     ];
 
-    const links = user?.role === "recruiter" ? recruiterLinks : seekerLinks;
+    const links = currentRole === "recruiter" ? recruiterLinks : seekerLinks;
 
     return (
         

@@ -71,28 +71,28 @@ export async function handleDeleteSavedJob(id) {
     if (!response.ok) throw new Error("Server error");
 
     const result = await response.json();
-    revalidatePath('/saved_jobs')
+    // revalidatePath('/saved_jobs')
     return { success: true, result };
   } catch (error) {
     return { success: false, error: error.message };
   }}
 
 //insert personal info of manage profile section
-// export async function updateProfileInfo({updatedData, email}) {
-//   try {
-//     const response = await fetch(`http://localhost:8000/profile/${email}`, {
-//       method: "PUT",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(updatedData),
-//     });
-//     if (!response.ok) throw new Error("Server error");
+export async function updateProfileInfo({updatedData, email}) {
+  try {
+    const response = await fetch(`http://localhost:8000/profile/${email}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedData),
+    });
+    if (!response.ok) throw new Error("Server error");
 
-//     const result = await response.json();
-//     revalidatePath('/profile')
-//     return { success: true, result };
-//   } catch (error) {
-//     return { success: false, error: error.message };
-//   }}
+    const result = await response.json();
+    revalidatePath('/profile')
+    return { success: true, result };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }}
 
 //insert personal info of create_profile section
 export async function handleFormSubmit(data) {
