@@ -13,10 +13,11 @@ import SkillsAndLinksInfo from '@/components/SkillsAndLinksInfo';
 export default function ProfileLayout({ user, savedCount, userInfo, visibility, availability}) {
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('personal');
+  const [globalPercentage, setGlobalPercentage] = useState(0);
 
   const userFullName = userInfo?.firstName
     ? `${userInfo.firstName} ${userInfo.lastName || ""}`.trim()
-    : (user?.name || "User Profile");
+    : "User" ;
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 font-sans antialiased p-4 md:p-6">
@@ -26,7 +27,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
         <div className="w-64 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm shrink-0 hidden md:block">
           <div className="flex flex-col items-center text-center pb-6 border-b border-gray-100 mb-4">
             <div className="w-20 h-20 bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full p-1 mb-2">
-              <div className="w-full h-full bg-gray-200 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-gray-500">75%</div>
+              <div className="w-full h-full bg-gray-200 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-gray-500">{globalPercentage}%</div>
             </div>
 
             {/* 🎯 এখানে ডাইনামিক ফুল নেম শো করবে */}
@@ -62,7 +63,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
               <div className="lg:col-span-2 space-y-6">
-                <ProfileHeader />
+                <ProfileHeader userFullName={userFullName}/>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <Subscription user={user} savedCount={savedCount} />
@@ -94,7 +95,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
               </div>
 
               <div className="space-y-6">
-                <ProfileProgressWidget setIsEditing={setIsEditing} />
+                <ProfileProgressWidget setIsEditing={setIsEditing} userInfo={userInfo} setGlobalPercentage={setGlobalPercentage}/>
                 <PromotionalSection />
               </div>
 
@@ -106,7 +107,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
             <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
               <div className="p-6 space-y-6">
 
-                <ProfileHeader2 user={user} setIsEditing={setIsEditing} visibility={visibility} availability={availability}/>
+                <ProfileHeader2 user={user} setIsEditing={setIsEditing} visibility={visibility} availability={availability} globalPercentage={globalPercentage}/>
 
                 {/* TAB CONTROLS */}
                 <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-px">

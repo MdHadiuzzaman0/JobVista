@@ -80,22 +80,22 @@ export default function CreateProfileOfSeeker() {
                     </div>
 
                     {/* 📍 Present Address */}
-                    <TextField name="presentAddress">
+                    <TextField isRequired name="presentAddress">
                         <Label className="text-workable-text-dark font-semibold">Present Address</Label>
                         <Input placeholder="Enter your current address" className="w-full border border-workable-slate bg-workable-bg/50 px-3 py-2 rounded-lg font-medium focus:border-workable-dark-green focus:outline-none text-workable-text-dark placeholder:text-workable-text-muted/50 text-xs" />
                         <FieldError className="text-red-400 text-[10px] mt-1" />
                     </TextField>
 
                     {/* 📍 Permanent Address */}
-                    <TextField name="permanentAddress">
+                    <TextField isRequired name="permanentAddress">
                         <Label className="text-workable-text-dark font-semibold">Permanent Address</Label>
                         <Input placeholder="Enter your permanent address" className="w-full border border-workable-slate bg-workable-bg/50 px-3 py-2 rounded-lg font-medium focus:border-workable-dark-green focus:outline-none text-workable-text-dark placeholder:text-workable-text-muted/50 text-xs" />
                         <FieldError className="text-red-400 text-[10px] mt-1" />
                     </TextField>
 
                     {/* Bio / Professional Summary */}
-                    <TextField name="bio">
-                        <Label className="text-workable-text-dark font-semibold">Professional Summary</Label>
+                    <TextField isRequired name="bio">
+                        <Label className="text-workable-text-dark font-semibold">Career Objective</Label>
                         <TextArea placeholder="Briefly describe your career goals..." className="w-full h-15 border border-workable-slate bg-workable-bg/50 px-3 py-2 rounded-lg font-medium focus:border-workable-dark-green focus:outline-none text-workable-text-dark placeholder:text-workable-text-muted/50 text-xs resize-none"/>
                         <FieldError className="text-red-400 text-[10px] mt-1" />
                     </TextField>
@@ -139,7 +139,8 @@ export default function CreateProfileOfSeeker() {
                 {/* ================= SECTION 3: EMPLOYMENT HISTORY ================= */}
                 <div className="p-5 bg-workable-slate/20 border border-workable-slate/40 rounded-2xl space-y-4">
                     <h3 className="text-sm font-bold text-workable-dark-green flex items-center gap-1.5 mb-2">
-                        Employment / Industrial Attachment History
+                        Employment / Industrial Attachment History <br/>
+                        (If fresher, write N/A)
                     </h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -176,7 +177,7 @@ export default function CreateProfileOfSeeker() {
                     </TextField>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <TextField name="portfolio">
+                        <TextField isRequired name="portfolio">
                             <Label className="text-workable-text-dark font-semibold">Portfolio / Website Link</Label>
                             <Input type="url" placeholder="https://yourportfolio.com" className="w-full border border-workable-slate bg-workable-bg/50 px-3 py-2 rounded-lg font-medium focus:border-workable-dark-green focus:outline-none text-workable-text-dark placeholder:text-workable-text-muted/50 text-xs" />
                             <FieldError className="text-red-400 text-[10px] mt-1" />

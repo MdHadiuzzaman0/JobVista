@@ -1,14 +1,11 @@
-
-
-export default function ProfileHeader({ profileData }) {
-  const userName = profileData?.name || "User";
+export default function ProfileHeader({ userFullName }) {
 
   return (
     <div className="w-full bg-white border border-gray-100 rounded-2xl p-6 shadow-sm mb-6">
       <div className="flex flex-col gap-1">
         {/* নাম সেকশন */}
         <h1 className="text-xl md:text-2xl font-bold text-gray-900 flex items-center gap-2">
-          Hello <span className='animate-pulse'>👋</span> <span className="text-workable-text-dark">{userName}</span>
+          Hello <span className='animate-pulse'>👋</span> <span className="text-blue-300">{userFullName}</span>
         </h1>
         
         {/* স্ট্যাটিক লাস্ট আপডেট ডেট সেকশন */}

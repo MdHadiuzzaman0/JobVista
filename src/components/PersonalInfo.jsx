@@ -118,6 +118,7 @@ export default function PersonalInfo({ userInfo, user }) {
                                     defaultValue={formData.lastName}
                                     className="border border-gray-200 px-3 py-2 rounded-lg font-medium focus:border-pink-500 focus:outline-none text-xs"
                                     placeholder="Enter your Last Name"
+                                    required
                                 />
                             </div>
 
@@ -179,7 +180,7 @@ export default function PersonalInfo({ userInfo, user }) {
                                     defaultValue={formData.presentAddress}
                                     className="border border-gray-200 px-3 py-2 rounded-lg font-medium focus:border-pink-500 focus:outline-none text-xs w-full"
                                     placeholder="Enter your Present Address"
-                                    rows="2"
+                                    rows="2" required
                                 />
                             </div>
 
@@ -190,7 +191,7 @@ export default function PersonalInfo({ userInfo, user }) {
                                     defaultValue={formData.permanentAddress}
                                     className="border border-gray-200 px-3 py-2 rounded-lg font-medium focus:border-pink-500 focus:outline-none text-xs w-full"
                                     placeholder="Enter your Permanent Address"
-                                    rows="2"
+                                    rows="2" required
                                 />
                             </div>
 

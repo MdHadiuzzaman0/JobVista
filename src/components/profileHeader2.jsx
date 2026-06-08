@@ -3,7 +3,7 @@ import ProfileVisibilityStatus from "@/components/ProfileVisibilityStatus";
 import { FiEye, FiDownload, FiArrowLeft, FiGlobe, FiBriefcase } from "react-icons/fi";
 import ProfileAvailabilityModal from "./ProfileAvailabilityModal";
 
-export default function ProfileHeader2({ user, setIsEditing, visibility, availability }) {
+export default function ProfileHeader2({ user, setIsEditing, visibility, availability, globalPercentage }) {
   return (
     <div className="w-full space-y-4 mb-6">
       
@@ -50,7 +50,7 @@ export default function ProfileHeader2({ user, setIsEditing, visibility, availab
             }}
           >
             <div className="absolute w-[46px] h-[46px] bg-white rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-gray-900">75%</span>
+              <span className="text-xs font-bold text-gray-900">{globalPercentage}%</span>
             </div>
           </div>
 

@@ -110,7 +110,7 @@ export default function SkillsAndLinksInfo({ userInfo, user }) {
                             </div>
 
                             <div className="flex flex-col gap-1 md:col-span-2">
-                                <label className="text-gray-600 font-semibold">Professional Summary</label>
+                                <label className="text-gray-600 font-semibold">Career Objective</label>
                                 <textarea
                                     name="bio"
                                     defaultValue={formData.bio}
