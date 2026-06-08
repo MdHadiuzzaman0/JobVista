@@ -29,9 +29,9 @@ export default function RegisterPage() {
     };
 
     const handleSignUpWithGoogle = async () => {
-        const data = await authClient.signUp.social({
+        const data = await authClient.signIn.social({
             provider: "google",
-            callBackURL: '/warning',
+            callbackURL: '/warning',
         });
     };
 

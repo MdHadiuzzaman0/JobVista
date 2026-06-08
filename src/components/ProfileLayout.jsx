@@ -1,4 +1,4 @@
-'use client'; 
+'use client';
 import ProfileHeader from '@/components/ProfileHeader';
 import Subscription from '@/components/Subscription';
 import ProfileProgressWidget from '@/components/ProfileProgressWidget';
@@ -10,38 +10,39 @@ import EducationInfo from '@/components/EducationInfo';
 import EmploymentInfo from '@/components/EmploymentInfo';
 import SkillsAndLinksInfo from '@/components/SkillsAndLinksInfo';
 
-export default function ProfileLayout({ user, savedCount, userInfo }) {
+export default function ProfileLayout({ user, savedCount, userInfo, visibility, availability}) {
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('personal');
 
-  const userFullName = userInfo?.firstName 
-    ? `${userInfo.firstName} ${userInfo.lastName || ""}`.trim() 
+  const userFullName = userInfo?.firstName
+    ? `${userInfo.firstName} ${userInfo.lastName || ""}`.trim()
     : (user?.name || "User Profile");
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 font-sans antialiased p-4 md:p-6">
       <div className="max-w-[1600px] mx-auto flex gap-6">
-        
+
         {/* LEFT SIDEBAR */}
         <div className="w-64 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm shrink-0 hidden md:block">
           <div className="flex flex-col items-center text-center pb-6 border-b border-gray-100 mb-4">
             <div className="w-20 h-20 bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full p-1 mb-2">
               <div className="w-full h-full bg-gray-200 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-gray-500">75%</div>
             </div>
-            
+
             {/* 🎯 এখানে ডাইনামিক ফুল নেম শো করবে */}
             <h3 className="font-bold text-gray-950 text-sm tracking-tight">{userFullName}</h3>
             <span className="text-[10px] text-green-600 bg-green-50 px-2 py-0.5 rounded-full mt-1 font-medium">Get JobVista Pro</span>
           </div>
-          
+
           <nav className="space-y-1">
-            <button 
+            <button
               onClick={() => setIsEditing(false)}
               className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${!isEditing ? 'bg-pink-50 text-pink-600' : 'text-gray-600 hover:bg-gray-50'}`}
             >
               📊 Dashboard
             </button>
-            <button 
+          
+            <button
               onClick={() => setIsEditing(true)}
               className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${isEditing ? 'bg-pink-50 text-pink-600' : 'text-gray-600 hover:bg-gray-50'}`}
             >
@@ -55,16 +56,16 @@ export default function ProfileLayout({ user, savedCount, userInfo }) {
 
         {/* RIGHT DYNAMIC CONTENT AREA */}
         <div className="flex-1">
-          
+
           {/* COMBO 1 VIEW (DASHBOARD) */}
           {!isEditing && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              
+
               <div className="lg:col-span-2 space-y-6">
                 <ProfileHeader />
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <Subscription user={user} savedCount={savedCount}/>
+                  <Subscription user={user} savedCount={savedCount} />
 
                   <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
                     <span className="text-xs text-gray-400 font-medium block">My Points</span>
@@ -93,7 +94,7 @@ export default function ProfileLayout({ user, savedCount, userInfo }) {
               </div>
 
               <div className="space-y-6">
-                <ProfileProgressWidget setIsEditing={setIsEditing}/>
+                <ProfileProgressWidget setIsEditing={setIsEditing} />
                 <PromotionalSection />
               </div>
 
@@ -104,8 +105,8 @@ export default function ProfileLayout({ user, savedCount, userInfo }) {
           {isEditing && (
             <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
               <div className="p-6 space-y-6">
-                
-                <ProfileHeader2 />
+
+                <ProfileHeader2 user={user} setIsEditing={setIsEditing} visibility={visibility} availability={availability}/>
 
                 {/* TAB CONTROLS */}
                 <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-px">
@@ -127,9 +128,9 @@ export default function ProfileLayout({ user, savedCount, userInfo }) {
 
                 {/* DYNAMIC TAB CONTENT AREA */}
                 <div className="border border-blue-200 rounded-xl p-6 bg-white space-y-6">
-                  
+
                   {activeTab === 'personal' && (
-                    <PersonalInfo user={user} userInfo={userInfo}/>
+                    <PersonalInfo user={user} userInfo={userInfo} />
                   )}
 
                   {activeTab === 'education' && (

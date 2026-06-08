@@ -41,13 +41,13 @@ export default function ProfileProgressWidget({ percentage = 70, setIsEditing })
       {/* 4️⃣ Edit Profile & Download CV Action Buttons */}
       <div className="grid grid-cols-2 gap-2 pb-2 w-full">
         <Button onClick={() => setIsEditing(true)}
-          className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-workable-slate/60 bg-workable-slate/20 hover:bg-workable-slate/40 text-workable-text-dark text-[11px] font-heading font-black transition-all cursor-pointer" >
+          className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-workable-slate/60 bg-workable-slate/20 hover:bg-workable-slate/40 text-workable-text-dark text-[10px] font-heading font-black transition-all cursor-pointer" >
           <FiEdit3 size={12} className="text-ocean-slate-light" /> <span>Edit Profile</span>
         </Button>
 
         <Link 
           href="/dashboard/profile/download-cv"
-          className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-workable-dark-green/30 bg-workable-dark-green/10 hover:bg-workable-dark-green/20 text-workable-dark-green text-[11px] font-heading font-black transition-all"
+          className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-workable-dark-green/30 bg-workable-dark-green/10 hover:bg-workable-dark-green/20 text-workable-dark-green text-[10px] font-heading font-black transition-all"
         >
           <FiDownload size={12} />
           <span>Download CV</span>

@@ -13,18 +13,19 @@ export default function CreateProfilePage({ sessionUser }) {
 
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData(e.target);
     const profileData = Object.fromEntries(formData.entries());
 
     if (!initialRole) {
       profileData.role = selectedRole;
-    }
+    }                          
 
+    profileData.visibility = "public"
+    profileData.availability = "Yes"
     const response = await handleFormSubmit(profileData);
     if (response.success) {
       toast.success("Profile saved successfully! 🎉");
-      router.push("/");
+      router.push("/profile");
     } else {
       toast.error(`Failed to save: ${response.error}`);
     }

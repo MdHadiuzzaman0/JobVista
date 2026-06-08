@@ -3,7 +3,7 @@ import { FiTrendingUp, FiZap, FiArrowUpRight } from "react-icons/fi";
 import { FaCrown } from "react-icons/fa";
 import { getSavedJobs } from "@/lib/data";
 
-export default function CurrentPlanWidget({ savedCount=0 , planType = "Free" }) {
+export default function CurrentPlanWidget({ savedCount , planType = "Free" }) {
   
   const planConfigs = {
     Free: {

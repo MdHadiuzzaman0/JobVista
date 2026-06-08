@@ -1,7 +1,6 @@
-// 🎯 ওপরে কোনো 'use client' নেই, এটি এখন পিওর Server Component
-import { auth } from "@/lib/auth"; // 👈 BetterAuth এর বা তোর অথেনটিকেশনের সার্ভার ফাংশন (যেমন: auth(), headers() ইত্যাদি)
+import { auth } from "@/lib/auth"; 
 import { headers } from "next/headers";
-import ProfileLayout from "@/components/ProfileLayout"; // ওপরে বানানো ক্লায়েন্ট লেআউটটি ইমপোর্ট কর
+import ProfileLayout from "@/components/ProfileLayout"; 
 import { getSavedJobs, getUserInfo } from "@/lib/data";
 
 export default async function ProfileDashboard() {
@@ -9,10 +8,15 @@ export default async function ProfileDashboard() {
     headers: await headers()
   });
   const user = session?.user;
-  const savedCount = await getSavedJobs(user?.email)
+  const savedJobs = await getSavedJobs(user?.email);
+  const savedCount = savedJobs?.length || 0;
   const userInfo = await getUserInfo(user?.email)
+
+  const {visibility, availability} = await getUserInfo(user?.email)
+  console.log(visibility, availability)
+  
   
   return (
-    <ProfileLayout user={user} savedCount={savedCount} userInfo={userInfo}/>
+    <ProfileLayout user={user} savedCount={savedCount} userInfo={userInfo} visibility={visibility} availability={availability}/>
   );
 }

@@ -77,7 +77,7 @@ export async function handleDeleteSavedJob(id) {
     return { success: false, error: error.message };
   }}
 
-//insert personal info of manage profile section
+//update personal info of manage profile section
 export async function updateProfileInfo({updatedData, email}) {
   try {
     const response = await fetch(`http://localhost:8000/profile/${email}`, {

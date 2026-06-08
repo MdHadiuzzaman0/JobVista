@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Modal, Button, Dropdown, Label } from "@heroui/react";
 import { FiGlobe, FiLock, FiShield, FiChevronDown } from "react-icons/fi";
+import { updateProfileInfo } from "@/lib/action"; // 👈 তোমার সার্ভার অ্যাকশন ইম্পোর্ট মেক শিওর করো
+import { toast } from "react-toastify";
 
-export default function ProfileVisibilityModal() {
-    const [selectedVisibility, setSelectedVisibility] = useState("public");
-
-    // তোমার নতুন Core Theme-এর কালার কোড ও আইকন ম্যাপিং
+export default function ProfileVisibilityModal({ user, visibility }) {
+    const [selectedVisibility, setSelectedVisibility] = useState(visibility || "public");
     const visibilityOptions = {
         public: {
             label: "Public",
@@ -13,7 +13,7 @@ export default function ProfileVisibilityModal() {
             desc: "Maximum exposure! All recruiters and search engines can view your profile and resume."
         },
         limited: {
-            label: "Limited (Recommended)",
+            label: "Limited",
             icon: <FiShield className="text-ocean-slate-light" size={16} />,
             desc: "Only verified premium companies can see you. Safe from spam, high response rate."
         },
@@ -23,6 +23,15 @@ export default function ProfileVisibilityModal() {
             desc: "Hidden from search. Only employers of jobs you explicitly apply to can view your data."
         }
     };
+
+    async function handleSave() {
+        const result = await updateProfileInfo({ updatedData: { visibility : selectedVisibility }, email: user?.email });
+        if (result?.success) {
+            toast.success("Visibility updated successfully!");
+        } else {
+            toast.error("Failed to update visibility.");
+        }
+    }
 
     return (
         <Modal>
@@ -37,8 +46,8 @@ export default function ProfileVisibilityModal() {
                 <Button
                     variant="secondary"
                     className={`flex items-center gap-1.5 px-2 py-1 rounded-xl font-bold text-[10px] border font-body cursor-pointer transition-all active:scale-95 min-w-0 h-auto ${selectedVisibility === "public" ? "bg-workable-dark-green/10 text-workable-dark-green border-workable-dark-green/30" :
-                            selectedVisibility === "limited" ? "bg-workable-primary/20 text-ocean-slate-light border-workable-slate" :
-                                "bg-workable-slate/40 text-workable-text-muted border-workable-slate/20"
+                        selectedVisibility === "limited" ? "bg-workable-primary/20 text-ocean-slate-light border-workable-slate" :
+                            "bg-workable-slate/40 text-workable-text-muted border-workable-slate/20"
                         }`}
                 >
                     {/* আইকন এবং টেক্সট পাশাপাশি সুন্দরভাবে বসে যাবে */}
@@ -127,7 +136,7 @@ export default function ProfileVisibilityModal() {
 
                         <Modal.Footer className="mt-5 pt-3 border-t border-workable-slate/40">
                             {/* Glowing Teal (`bg-workable-dark-green`) অ্যাকশন বাটন */}
-                            <Button
+                            <Button onPress={() => handleSave()}
                                 className="w-full bg-workable-dark-green hover:bg-workable-dark-green/80 text-workable-bg text-xs font-black font-body rounded-xl py-2.5 transition-colors shadow-lg shadow-workable-dark-green/10 cursor-pointer"
                                 slot="close"
                             >

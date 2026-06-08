@@ -13,7 +13,7 @@ function SaveButton({ job, email, allSavedJob }) {
 
   const isAlreadySaved = allSavedJob?.some(singleJob => singleJob.jobId === _id);
   const [saveValue, setSaveValue] = useState(isAlreadySaved);
-
+  
   async function handleSaveToggle() {
     if (saveValue) {
       const savedItem = allSavedJob?.find(singleJob => singleJob.jobId === _id);
@@ -36,7 +36,7 @@ function SaveButton({ job, email, allSavedJob }) {
   }
 
   return (
-    <Button
+    <Button isDisabled={allSavedJob?.length >= 3 && !saveValue}
       onPress={handleSaveToggle}
       variant={saveValue ? "flat" : "solid"}
       className={`font-heading font-bold uppercase tracking-wider text-xs px-6 py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer

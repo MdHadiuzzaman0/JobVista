@@ -1,8 +1,9 @@
 import { Button } from "@heroui/react";
 import ProfileVisibilityStatus from "@/components/ProfileVisibilityStatus";
 import { FiEye, FiDownload, FiArrowLeft, FiGlobe, FiBriefcase } from "react-icons/fi";
+import ProfileAvailabilityModal from "./ProfileAvailabilityModal";
 
-export default function ProfileHeader2({ setIsEditing }) {
+export default function ProfileHeader2({ user, setIsEditing, visibility, availability }) {
   return (
     <div className="w-full space-y-4 mb-6">
       
@@ -19,16 +20,10 @@ export default function ProfileHeader2({ setIsEditing }) {
         <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-start md:justify-end">
           
           {/* Profile Visibility Status */}
-          <ProfileVisibilityStatus />
+          <ProfileVisibilityStatus user={user} visibility={visibility}/>
 
           {/* Immediately Availability Status */}
-          <div className="flex items-center gap-2 border border-gray-200 bg-gray-50/50 px-3 py-1.5 rounded-xl text-xs font-medium text-gray-600">
-            <FiBriefcase className="text-gray-400" size={14} />
-            <span>Immediately Available</span>
-            <span className="bg-green-50 text-green-600 border border-green-200 px-2 py-0.5 rounded-lg font-bold text-[10px]">
-              Yes
-            </span>
-          </div>
+          <ProfileAvailabilityModal user={user} availability={availability} />
 
           {/* ড্যাশবোর্ডে ফিরে যাওয়ার বাটন */}
           <Button onClick={() => setIsEditing(false)}

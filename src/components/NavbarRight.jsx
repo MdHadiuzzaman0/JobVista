@@ -13,11 +13,18 @@ const NavbarRight = ({ session, userInfo }) => {
 
     // ওল্ড সেশন ইউজার (ফলব্যাক ব্যাকআপ)
     const sessionUser = session?.user;
-
-    // 🎯 ডাটাবেজ প্রোফাইল থাকলে সেটা দেখাবে, না থাকলে সাইন-আপের ডিফল্ট ডাটা দেখাবে
-    const displayName = userInfo?.name || sessionUser?.name || "User";
-    const displayImage = userInfo?.image || sessionUser?.image;
-    const displayRole = userInfo?.role;
+    let displayName = "User";
+    let displayImage = null;
+    let displayRole = "Guest";
+    if (userInfo) {
+        displayName = `${userInfo.firstName || ""} ${userInfo.lastName || ""}`.trim();
+        displayImage = userInfo.image;
+        displayRole = userInfo.role;
+    } else {
+        displayName = sessionUser?.name;
+        displayImage = sessionUser?.image;
+        displayRole = "Guest";
+    }
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -118,7 +125,7 @@ const NavbarRight = ({ session, userInfo }) => {
                                 {displayName}
                             </span>
                             <span className="text-[9px] font-mono uppercase tracking-widest text-workable-primary font-bold leading-tight">
-                                {displayRole || "New Member"}
+                                {displayRole}
                             </span>
                         </div>
 
