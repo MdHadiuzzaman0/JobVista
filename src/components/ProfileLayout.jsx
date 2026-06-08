@@ -63,7 +63,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
               <div className="lg:col-span-2 space-y-6">
-                <ProfileHeader userFullName={userFullName}/>
+                <ProfileHeader userFullName={userFullName} userInfo={userInfo}/>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <Subscription user={user} savedCount={savedCount} />
