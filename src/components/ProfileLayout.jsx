@@ -94,7 +94,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm h-32 flex items-center justify-center text-xs text-gray-400">Profile View Analytics</div>
-                  <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm h-32 flex items-center justify-center text-xs text-gray-400">Total Invitations (0)</div>
+                  
                 </div>
               </div>
 
