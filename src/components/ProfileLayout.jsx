@@ -9,15 +9,22 @@ import PersonalInfo from '@/components/PersonalInfo';
 import EducationInfo from '@/components/EducationInfo';
 import EmploymentInfo from '@/components/EmploymentInfo';
 import SkillsAndLinksInfo from '@/components/SkillsAndLinksInfo';
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
-export default function ProfileLayout({ user, savedCount, userInfo, visibility, availability}) {
+export default function ProfileLayout({ user, savedCount, userInfo, visibility, availability }) {
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('personal');
   const [globalPercentage, setGlobalPercentage] = useState(0);
 
   const userFullName = userInfo?.firstName
     ? `${userInfo.firstName} ${userInfo.lastName || ""}`.trim()
-    : "User" ;
+    : "User";
+
+  const logout = async () => {
+    await authClient.signOut();
+    router.push("/login");
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 font-sans antialiased p-4 md:p-6">
@@ -42,7 +49,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
             >
               📊 Dashboard
             </button>
-          
+
             <button
               onClick={() => setIsEditing(true)}
               className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${isEditing ? 'bg-pink-50 text-pink-600' : 'text-gray-600 hover:bg-gray-50'}`}
@@ -51,7 +58,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
             </button>
             <div className="text-gray-400 text-[11px] font-bold px-4 pt-4 pb-1 uppercase tracking-wider">System</div>
             <button className="w-full text-left px-4 py-2.5 rounded-xl text-sm text-gray-600 hover:bg-gray-50">⚙️ Settings</button>
-            <button className="w-full text-left px-4 py-2.5 rounded-xl text-sm text-red-500 hover:bg-red-50">🚪 Sign Out</button>
+            <button onClick={() => logout()} className="w-full text-left px-4 py-2.5 rounded-xl text-sm text-red-500 hover:bg-red-50">🚪 Sign Out</button>
           </nav>
         </div>
 
@@ -63,7 +70,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
               <div className="lg:col-span-2 space-y-6">
-                <ProfileHeader userFullName={userFullName} userInfo={userInfo}/>
+                <ProfileHeader userFullName={userFullName} userInfo={userInfo} />
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <Subscription user={user} savedCount={savedCount} />
@@ -95,7 +102,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
               </div>
 
               <div className="space-y-6">
-                <ProfileProgressWidget setIsEditing={setIsEditing} userInfo={userInfo} setGlobalPercentage={setGlobalPercentage}/>
+                <ProfileProgressWidget setIsEditing={setIsEditing} userInfo={userInfo} setGlobalPercentage={setGlobalPercentage} />
                 <PromotionalSection />
               </div>
 
@@ -107,7 +114,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
             <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
               <div className="p-6 space-y-6">
 
-                <ProfileHeader2 user={user} setIsEditing={setIsEditing} visibility={visibility} availability={availability} globalPercentage={globalPercentage}/>
+                <ProfileHeader2 user={user} setIsEditing={setIsEditing} visibility={visibility} availability={availability} globalPercentage={globalPercentage} />
 
                 {/* TAB CONTROLS */}
                 <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-px">
