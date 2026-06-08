@@ -6,13 +6,13 @@
   /* ==========================================
      🌊 NEW CORE THEME (Active from now on)
      ========================================== */
---color-workable-bg: #04202B;           /* Dark Ocean Base — ঠিক আছে */
---color-workable-text-dark: #E8F4FD;    /* উজ্জ্বল White-Blue — আগে ছিল A4CCF9, কম visible */
---color-workable-text-muted: #7FA8BE;   /* একটু lighter — আগে ছিল 5C7687, অনেক dark */
---color-workable-dark-green: #00BFC8;   /* Brighter Teal — আগে ছিল 039AA1 */
---color-workable-primary: #057A8A;      /* একটু lighter — আগে ছিল 056472 */
---color-workable-slate: #1A5266;        /* Border — একটু lighter */
---color-ocean-slate-light: #E8F4FD;     /* same as text-dark */
+--color-workable-bg: #0A1628;          /* Mother BG — Deep Navy */
+--color-workable-slate: #112240;       /* Child BG — Card/Modal */
+--color-workable-text-dark: #E6F1FF;   /* Primary Text — প্রায় সাদা */
+--color-workable-text-muted: #8892B0;  /* Secondary Text — মাঝারি */
+--color-workable-dark-green: #64FFDA;  /* Accent — Bright Cyan */
+--color-workable-primary: #00B4D8;     /* Button/Link — Sky Blue */
+--color-ocean-slate-light: #CCD6F6;    /* Subtle Text / Border */
 
   --font-heading: var(--font-heading), sans-serif;
   --font-body: var(--font-body), sans-serif;

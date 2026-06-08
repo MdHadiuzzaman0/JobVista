@@ -4,7 +4,7 @@ import { FaBookmark } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@heroui/react";
-import { getJobById, getAppliedJobs, getSavedJobs } from "@/lib/data";
+import { getJobById, getAppliedJobs, getSavedJobs, getUserInfo } from "@/lib/data";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import GoBackBtnInDetailPage from '@/components/GoBackBtnInDetailPage';
@@ -25,9 +25,9 @@ const JobDetailsPage = async ({ params }) => {
     });
     const user = session?.user;
     const email = user?.email;
-
     const allAppliedJob = await getAppliedJobs(email)
-    const allsavedJob = await getsavedJobs(email)
+    const allSavedJob = await getSavedJobs(email)
+    const userInfo = await getUserInfo(user?.email)
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 py-12 px-4 md:px-8">
@@ -50,7 +50,7 @@ const JobDetailsPage = async ({ params }) => {
                         ) : (
                             <>
                                 <ApplyButton job={job} email={email} allAppliedJob={allAppliedJob}/>
-                                <SavedButton job={job} email={email} allSavedJob={allSavedJob}/>
+                                <SavedButton job={job} email={email} allSavedJob={allSavedJob} userInfo={userInfo}/>
                             </>
                         )}
                     </div>

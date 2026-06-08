@@ -22,6 +22,7 @@ export default function CreateProfilePage({ sessionUser }) {
 
     profileData.visibility = "public"
     profileData.availability = "Yes"
+    profileData.subscription = "Free"
     const response = await handleFormSubmit(profileData);
     if (response.success) {
       toast.success("Profile saved successfully! 🎉");

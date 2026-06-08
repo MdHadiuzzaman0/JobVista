@@ -1,6 +1,6 @@
 import { FiSearch, FiMapPin } from "react-icons/fi";
 import JobCard from "@/components/JobCard";
-import { getAllJobs, getAppliedJobs, getSavedJobs } from "@/lib/data";
+import { getAllJobs, getAppliedJobs, getSavedJobs, getUserInfo } from "@/lib/data";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
@@ -12,6 +12,7 @@ const AllJobsPage = async () => {
     const email = session?.user?.email;
     const allAppliedJob = await getAppliedJobs(email)
     const allSavedJob = await getSavedJobs(email)
+    const userInfo = await getUserInfo(email)
 
     return (
         <div className="bg-workable-bg min-h-screen pt-12 pb-20 px-4 md:px-8 lg:px-12">
@@ -48,7 +49,7 @@ const AllJobsPage = async () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {allJobs?.map((job) => (
-                        <JobCard key={job._id || job.id} job={job} email={email} allAppliedJob={allAppliedJob} allSavedJob={allSavedJob} />
+                        <JobCard key={job._id || job.id} job={job} email={email} allAppliedJob={allAppliedJob} allSavedJob={allSavedJob} userInfo={userInfo}/>
                     ))}
                 </div>
 

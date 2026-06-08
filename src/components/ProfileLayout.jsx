@@ -9,10 +9,14 @@ import PersonalInfo from '@/components/PersonalInfo';
 import EducationInfo from '@/components/EducationInfo';
 import EmploymentInfo from '@/components/EmploymentInfo';
 import SkillsAndLinksInfo from '@/components/SkillsAndLinksInfo';
+import MyPoints from '@/components/MyPoints';
+import SMS from '@/components/SMS';
 import { authClient } from "@/lib/auth-client";
+import { Link } from '@heroui/react';
 import { useRouter } from "next/navigation";
 
 export default function ProfileLayout({ user, savedCount, userInfo, visibility, availability }) {
+  const router = useRouter()
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('personal');
   const [globalPercentage, setGlobalPercentage] = useState(0);
@@ -57,7 +61,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
               👤 Manage Profile
             </button>
             <div className="text-gray-400 text-[11px] font-bold px-4 pt-4 pb-1 uppercase tracking-wider">System</div>
-            <button className="w-full text-left px-4 py-2.5 rounded-xl text-sm text-gray-600 hover:bg-gray-50">⚙️ Settings</button>
+            <Link href="/settings" className="w-full text-left px-4 py-2.5 rounded-xl text-sm text-gray-600 hover:bg-gray-50">⚙️ Settings</Link>
             <button onClick={() => logout()} className="w-full text-left px-4 py-2.5 rounded-xl text-sm text-red-500 hover:bg-red-50">🚪 Sign Out</button>
           </nav>
         </div>
@@ -73,16 +77,9 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
                 <ProfileHeader userFullName={userFullName} userInfo={userInfo} />
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <Subscription user={user} savedCount={savedCount} />
-
-                  <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
-                    <span className="text-xs text-gray-400 font-medium block">My Points</span>
-                    <span className="text-sm font-bold text-purple-600 mt-1 block">82 Points</span>
-                  </div>
-                  <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
-                    <span className="text-xs text-gray-400 font-medium block">SMS Job Alert</span>
-                    <span className="text-sm font-bold text-blue-600 mt-1 block">Active</span>
-                  </div>
+                  <Subscription userInfo={userInfo} savedCount={savedCount} />
+                  <MyPoints />
+                  <SMS />
                 </div>
 
                 <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm min-h-[300px] flex flex-col justify-between">

@@ -13,8 +13,7 @@ export default async function ProfileDashboard() {
   const userInfo = await getUserInfo(user?.email)
 
   const {visibility, availability} = await getUserInfo(user?.email)
-  console.log(visibility, availability)
-  
+  // console.log(savedCount)
   
   return (
     <ProfileLayout user={user} savedCount={savedCount} userInfo={userInfo} visibility={visibility} availability={availability}/>

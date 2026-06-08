@@ -9,7 +9,7 @@ import Image from "next/image";
 import ApplyButton from '@/components/ApplyButton'
 import SavedButton from '@/components/SavedButton'
 
-const JobCard = ({ job, email, allAppliedJob, allSavedJob }) => {
+const JobCard = ({ job, email, allAppliedJob, allSavedJob, userInfo }) => {
     const { _id, title, category, company, location, type, salaryMin, salaryMax, currency, deadline } = job;
     const currencySymbol = currency === "USD" ? "$" : "৳";
 
@@ -33,7 +33,7 @@ const JobCard = ({ job, email, allAppliedJob, allSavedJob }) => {
 
                     {/* ⚡ SavedButton position patch: Wrapped in a clean absolute layer at the top right */}
                     <div className="absolute top-3 right-3 z-10 flex items-center justify-center">
-                        <SavedButton job={job} email={email} allSavedJob={allSavedJob}/>
+                        <SavedButton job={job} email={email} allSavedJob={allSavedJob} userInfo={userInfo}/>
                     </div>
 
                     <span className="absolute bottom-3 left-3 inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-heading font-black uppercase tracking-wider bg-white/90 backdrop-blur-sm text-workable-dark-green shadow-sm">

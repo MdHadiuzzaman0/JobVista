@@ -2,6 +2,7 @@
 import { FiCheckCircle, FiXCircle, FiEdit3, FiDownload } from "react-icons/fi";
 import Link from "next/link";
 import { Button } from "@heroui/react";
+import { useEffect } from "react";
 
 export default function ProgressBarAndUpdate({ userInfo, setIsEditing, setGlobalPercentage }) {
 

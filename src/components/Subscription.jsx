@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { FiTrendingUp, FiZap, FiArrowUpRight } from "react-icons/fi";
 import { FaCrown } from "react-icons/fa";
-import { getSavedJobs } from "@/lib/data";
 
-export default function CurrentPlanWidget({ savedCount , planType = "Free" }) {
+export default function CurrentPlanWidget({ savedCount , userInfo }) {
   
   const planConfigs = {
     Free: {
       name: "Free Tier",
-      desc: `${savedCount.length}/10 saved jobs used`,
+      desc: `${savedCount}/10 saved jobs used`,
       icon: <FiTrendingUp className="text-workable-dark-green shrink-0" size={14} />,
       badgeClass: "bg-workable-dark-green/10 text-workable-dark-green border-workable-dark-green/20",
       borderAccent: "border-t-workable-dark-green",
@@ -32,7 +31,7 @@ export default function CurrentPlanWidget({ savedCount , planType = "Free" }) {
     },
   };
 
-  const currentPlan = planConfigs[planType] || planConfigs.Free;
+  const currentPlan = planConfigs[userInfo?.subscription] || "Free";
 
   return (
     <div className={`bg-workable-bg border border-workable-slate/40 rounded-2xl p-5 shadow-md shadow- min-h-[150px] flex flex-col justify-between border-t-4 ${currentPlan.borderAccent} relative overflow-hidden w-full transition-all duration-300 hover:border-workable-slate/80`}>
@@ -43,7 +42,7 @@ export default function CurrentPlanWidget({ savedCount , planType = "Free" }) {
       {/* Top Section: Header & Badge */}
       <div className="w-full space-y-3 relative z-10">
         <div className="flex items-center justify-between w-full gap-2">
-          <span className="text-[9px] uppercase font-heading font-black tracking-widest text-workable-text-muted">
+          <span className="text-[7px] uppercase font-heading font-black tracking-widest text-workable-text-muted">
             Account Status
           </span>
           <span className={`text-[9px] font-sans font-bold px-2 py-0.5 rounded-full border shrink-0 backdrop-blur-sm ${currentPlan.badgeClass}`}>
@@ -69,7 +68,7 @@ export default function CurrentPlanWidget({ savedCount , planType = "Free" }) {
 
         {/* Action Link Button */}
         <Link 
-          href="/dashboard/billing"
+          href="/subscription"
           className="flex items-center justify-between w-full text-[10px] font-heading font-black text-workable-text-dark hover:text-workable-dark-green transition-colors group bg-workable-primary/20 hover:bg-workable-primary/30 px-3 py-2 rounded-xl border border-workable-slate/40"
         >
           <span>{currentPlan.ctaText}</span>
