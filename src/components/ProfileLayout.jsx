@@ -51,7 +51,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
                   background: `conic-gradient(#a7f3d0 ${globalPercentage * 3.6}deg, #f3f4f6 0deg)`
                 }}
               >
-                {/* Inner Circle (Masking to keep the ring slim) */}
+                
                 <div className="w-[74px] h-[74px] bg-white rounded-full flex items-center justify-center p-1 relative overflow-hidden">
                   {userInfo?.image ? (
                     <Image
