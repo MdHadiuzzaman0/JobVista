@@ -11,8 +11,12 @@ import EmploymentInfo from '@/components/EmploymentInfo';
 import SkillsAndLinksInfo from '@/components/SkillsAndLinksInfo';
 import MyPoints from '@/components/MyPoints';
 import SMS from '@/components/SMS';
+import QR from '@/components/QR';
+import Invitation from '@/components/Invitation';
+import ApplicationChart from '@/components/ApplicationChart';
 import { authClient } from "@/lib/auth-client";
 import { Link } from '@heroui/react';
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function ProfileLayout({ user, savedCount, userInfo, visibility, availability }) {
@@ -24,6 +28,8 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
   const userFullName = userInfo?.firstName
     ? `${userInfo.firstName} ${userInfo.lastName || ""}`.trim()
     : "User";
+
+  const firstLetter = userFullName ? userFullName.trim().charAt(0).toUpperCase() : "?";
 
   const logout = async () => {
     await authClient.signOut();
@@ -37,8 +43,34 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
         {/* LEFT SIDEBAR */}
         <div className="w-64 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm shrink-0 hidden md:block">
           <div className="flex flex-col items-center text-center pb-6 border-b border-gray-100 mb-4">
-            <div className="w-20 h-20 bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full p-1 mb-2">
-              <div className="w-full h-full bg-gray-200 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-gray-500">{globalPercentage}%</div>
+            {/* 🟢 Avatar & Progress Ring Section */}
+            <div className="relative mb-3 flex items-center justify-center shrink-0">
+              <div
+                className="w-22 h-22 rounded-full flex items-center justify-center transition-all duration-500"
+                style={{
+                  background: `conic-gradient(#a7f3d0 ${globalPercentage * 3.6}deg, #f3f4f6 0deg)`
+                }}
+              >
+                {/* Inner Circle (Masking to keep the ring slim) */}
+                <div className="w-[74px] h-[74px] bg-white rounded-full flex items-center justify-center p-1 relative overflow-hidden">
+                  {userInfo?.image ? (
+                    <Image
+                      src={userInfo.image}
+                      alt={userFullName} fill
+                      className="w-full h-full rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full rounded-full bg-slate-50 text-slate-600 flex items-center justify-center font-black text-2xl font-heading">
+                      {firstLetter}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* 🏷️ Micro Percentage Tag (স্ক্রিনশটের মতো মেরুন/পিঙ্ক টেক্সট) */}
+              <div className="absolute -bottom-1 bg-white px-2 py-0.5 rounded-full border border-gray-100 shadow-sm text-[10px] font-black text-[#b91c1c] leading-none">
+                {globalPercentage}%
+              </div>
             </div>
 
             {/* 🎯 এখানে ডাইনামিক ফুল নেম শো করবে */}
@@ -84,17 +116,14 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
 
                 <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm min-h-[300px] flex flex-col justify-between">
                   <div className="flex justify-between items-center">
-                    <h3 className="font-bold text-sm text-gray-900">Explore Your JobVista Stat</h3>
-                    <button onClick={() => setIsEditing(true)} className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-xs font-semibold rounded-lg transition-colors text-pink-600">⚡ Edit Profile</button>
+                    <h3 className="font-bold text-sm text-gray-900">Explore Applied Jobs Stats</h3>
                   </div>
-                  <div className="flex-1 flex items-center justify-center border border-dashed border-gray-200 rounded-xl mt-4 bg-gray-50/50">
-                    <p className="text-xs text-gray-400">📊 Chart Mockup (Click Edit Profile to check Combo 2)</p>
-                  </div>
+                  <ApplicationChart />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm h-32 flex items-center justify-center text-xs text-gray-400">Profile View Analytics</div>
-                  
+                  <Invitation />
+                  <QR />
                 </div>
               </div>
 
@@ -111,7 +140,7 @@ export default function ProfileLayout({ user, savedCount, userInfo, visibility, 
             <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
               <div className="p-6 space-y-6">
 
-                <ProfileHeader2 user={user} setIsEditing={setIsEditing} visibility={visibility} availability={availability} globalPercentage={globalPercentage} />
+                <ProfileHeader2 user={user} userInfo={userInfo} setIsEditing={setIsEditing} visibility={visibility} availability={availability} globalPercentage={globalPercentage} />
 
                 {/* TAB CONTROLS */}
                 <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-px">

@@ -5,10 +5,13 @@ import { useState } from "react";
 import { handleFormSubmit } from "@/lib/action";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
-export default function CreateProfilePage({ sessionUser }) {
+export default function CreateProfilePage() {
   const router = useRouter()
-  const initialRole = sessionUser?.role || "";
+  const { data: session, isPending, error, refetch } = authClient.useSession()
+  const email = session?.user?.email
+  const initialRole = session?.user?.role || "";
   const [selectedRole, setSelectedRole] = useState(initialRole);
 
   const handleProfileSubmit = async (e) => {
@@ -60,7 +63,7 @@ export default function CreateProfilePage({ sessionUser }) {
         )}
 
         {/* DYNAMIC SITUATION: রোল অনুযায়ী ফর্ম */}
-        {selectedRole === "seeker" && <CreateProfileOfSeeker />}
+        {selectedRole === "seeker" && <CreateProfileOfSeeker email={email}/>}
         {selectedRole === "recruiter" && <CreateProfileOfRecruiter />}
 
         {/* SUBMIT BUTTON */}

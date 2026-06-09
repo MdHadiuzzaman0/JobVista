@@ -4,6 +4,7 @@ import { useState } from "react";
 export default function PersonalInfo({ userInfo, user }) {
     const [isEditingPersonal, setIsEditingPersonal] = useState(false);
     
+    // 🎯 ১. useState-এ ফিল্ডের নাম 'image' করা হলো
     const [formData, setFormData] = useState({
         firstName: userInfo?.firstName || "",
         lastName: userInfo?.lastName || "",
@@ -12,10 +13,12 @@ export default function PersonalInfo({ userInfo, user }) {
         gender: userInfo?.gender || "",
         maritalStatus: userInfo?.maritalStatus || "",
         presentAddress: userInfo?.presentAddress || "",
-        permanentAddress: userInfo?.permanentAddress || ""
+        permanentAddress: userInfo?.permanentAddress || "",
+        image: userInfo?.image || "" 
     });
 
     const handleFormSubmit = async (data) => {
+        // 🎯 ২. ফর্ম থেকে ডেটা রিড করার সময় 'image' নাম ক্যাচ করা হলো
         const updatedData = {
             firstName: data.get("firstName"),
             lastName: data.get("lastName"),
@@ -24,6 +27,7 @@ export default function PersonalInfo({ userInfo, user }) {
             maritalStatus: data.get("maritalStatus"),
             presentAddress: data.get("presentAddress"),
             permanentAddress: data.get("permanentAddress"),
+            image: data.get("image"), 
             email: formData.email
         };
         console.log("Saving via Form Action:", updatedData);
@@ -37,7 +41,7 @@ export default function PersonalInfo({ userInfo, user }) {
     };
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 select-none">
 
             {/* 🛡️ PERSONAL DETAILS BLOCK */}
             <div className="border border-gray-100 rounded-xl p-4 bg-gray-50/30">
@@ -47,7 +51,7 @@ export default function PersonalInfo({ userInfo, user }) {
                     {!isEditingPersonal && (
                         <button
                             onClick={() => setIsEditingPersonal(true)}
-                            className="text-xs font-bold text-pink-600 hover:underline flex items-center gap-1"
+                            className="text-xs font-bold text-pink-600 hover:underline flex items-center gap-1 cursor-pointer"
                         >
                             📝 Edit Section
                         </button>
@@ -56,7 +60,7 @@ export default function PersonalInfo({ userInfo, user }) {
 
                 {!isEditingPersonal ? (
 
-                    /* 👁️ VIEW MODE (ডেটা না থাকলে "---" দেখাবে) */
+                    /* 👁️ VIEW MODE */
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6 text-xs">
                         <div>
                             <span className="text-gray-400 block mb-0.5">First Name</span>
@@ -65,6 +69,11 @@ export default function PersonalInfo({ userInfo, user }) {
                         <div>
                             <span className="text-gray-400 block mb-0.5">Last Name</span>
                             <span className="font-medium text-gray-800">{formData.lastName || "---"}</span>
+                        </div>
+                        {/* 🎯 ৩. ভিউ মোডে 'image' শো করা হলো */}
+                        <div className="md:col-span-2">
+                            <span className="text-gray-400 block mb-0.5">Profile Image URL</span>
+                            <span className="font-medium text-gray-800 break-all">{formData.image || "---"}</span>
                         </div>
                         <div>
                             <span className="text-gray-400 block mb-0.5">Primary Mobile</span>
@@ -82,11 +91,11 @@ export default function PersonalInfo({ userInfo, user }) {
                             <span className="text-gray-400 block mb-0.5">Marital Status</span>
                             <span className="font-medium text-gray-800">{formData.maritalStatus || "---"}</span>
                         </div>
-                        <div>
+                        <div className="md:col-span-2">
                             <span className="text-gray-400 block mb-0.5">Present Address</span>
                             <span className="font-medium text-gray-800">{formData.presentAddress || "---"}</span>
                         </div>
-                        <div>
+                        <div className="md:col-span-2">
                             <span className="text-gray-400 block mb-0.5">Permanent Address</span>
                             <span className="font-medium text-gray-800">{formData.permanentAddress || "---"}</span>
                         </div>
@@ -94,7 +103,7 @@ export default function PersonalInfo({ userInfo, user }) {
 
                 ) : (
 
-                    /* 📝 EDIT MODE FORM (ইনপুট ফিল্ড ফাঁকা থাকবে, প্লেসহোল্ডার গাইড করবে) */
+                    /* 📝 EDIT MODE FORM */
                     <form action={handleFormSubmit} className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
 
@@ -119,6 +128,18 @@ export default function PersonalInfo({ userInfo, user }) {
                                     className="border border-gray-200 px-3 py-2 rounded-lg font-medium focus:border-pink-500 focus:outline-none text-xs"
                                     placeholder="Enter your Last Name"
                                     required
+                                />
+                            </div>
+
+                            {/* 🎯 ৪. ইনপুট ফিল্ডের name প্রপার্টি 'image' করা হলো */}
+                            <div className="flex flex-col gap-1 md:col-span-2">
+                                <label className="text-gray-600 font-semibold">Profile Image URL</label>
+                                <input
+                                    type="text"
+                                    name="image"
+                                    defaultValue={formData.image}
+                                    className="border border-gray-200 px-3 py-2 rounded-lg font-medium focus:border-pink-500 focus:outline-none text-xs"
+                                    placeholder="Paste your image hosting URL (e.g., ImgBB, Cloudinary)"
                                 />
                             </div>
 
@@ -202,13 +223,13 @@ export default function PersonalInfo({ userInfo, user }) {
                             <button
                                 type="button"
                                 onClick={() => setIsEditingPersonal(false)}
-                                className="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs font-semibold rounded-lg hover:bg-gray-200 transition-colors"
+                                className="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs font-semibold rounded-lg hover:bg-gray-200 transition-colors cursor-pointer"
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
-                                className="px-3 py-1.5 bg-pink-600 text-white text-xs font-semibold rounded-lg shadow-sm hover:bg-pink-700 transition-colors"
+                                className="px-3 py-1.5 bg-pink-600 text-white text-xs font-semibold rounded-lg shadow-sm hover:bg-pink-700 transition-colors cursor-pointer"
                             >
                                 Save Details
                             </button>

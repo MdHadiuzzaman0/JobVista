@@ -1,22 +1,18 @@
 export default function ProfileHeader({ userFullName, userInfo }) {
-  
-  const getFormattedDate = (id) => {
+  const getFormattedDate = (updatedAtString) => {
     try {
-      if (!id) return "Not Available";
-      const timestampHex = id.toString().slice(0, 8);
-      const dateMilliseconds = parseInt(timestampHex, 16) * 1000;
-      const dateObj = new Date(dateMilliseconds);
+      if (!updatedAtString) return "Not Available";
+      const dateObj = new Date(updatedAtString);
       return dateObj.toLocaleDateString("en-GB", {
         day: "numeric",
         month: "short",
         year: "numeric"
       });
     } catch (error) {
-      return "error"
+      return "Error";
     }
   };
-
-  const lastUpdateDate = getFormattedDate(userInfo?._id);
+  const lastUpdateDate = getFormattedDate(userInfo?.updatedAt);
 
   return (
     <div className="w-full bg-white border border-gray-100 rounded-2xl p-6 shadow-sm mb-6">
