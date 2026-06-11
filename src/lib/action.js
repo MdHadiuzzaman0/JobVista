@@ -110,30 +110,61 @@ export async function handleFormSubmit(data) {
     return { success: false, error: error.message };
   }}
 
-//Filter 
-export async function getFilteredJobs(jobType) {
-  // 🎯 লাইন চেঞ্জ: মেইন পেজ থেকে পাঠানো "Remote" লেখাটা এখানে আসলো। 
-  // তাই এখন প্যারামিটার: jobType = "Remote"
+// //Filter 
+// export async function getFilteredJobs(jobType) {
+//   // 🎯 লাইন চেঞ্জ: মেইন পেজ থেকে পাঠানো "Remote" লেখাটা এখানে আসলো। 
+//   // তাই এখন প্যারামিটার: jobType = "Remote"
   
-  try {
-    let url = "http://localhost:8000/jobs"; // ২. এক্সপ্রেস সার্ভারের বেস লিংক।
+//   try {
+//     let url = "http://localhost:8000/jobs"; // ২. এক্সপ্রেস সার্ভারের বেস লিংক।
 
-    if (jobType && jobType !== "All") {
-      url += `?types=${jobType}`; 
-      // 🎯 LINE CHANGE: যেহেতু jobType এর মান "Remote", তাই কন্ডিশন সত্য হলো।
-      // মেইন ইউআরএল-এর সাথে কুয়েরি জুড়ে url ভ্যারিয়েবল হয়ে গেল: http://localhost:8000/jobs?types=Remote
+//     if (jobType && jobType !== "All") {
+//       url += `?types=${jobType}`; 
+//       // 🎯 LINE CHANGE: যেহেতু jobType এর মান "Remote", তাই কন্ডিশন সত্য হলো।
+//       // মেইন ইউআরএল-এর সাথে কুয়েরি জুড়ে url ভ্যারিয়েবল হয়ে গেল: http://localhost:8000/jobs?types=Remote
+//     }
+
+//     const res = await fetch(url, { cache: "no-store" });
+//     // 🎯 লাইন চেঞ্জ: এই নতুন ডাইনামিক url নিয়ে fetch মেথড এক্সপ্রেস সার্ভারে রিকোয়েস্ট পাচার করে দিল।
+
+//     if (!res.ok) {
+//       throw new Error("Failed to fetch jobs from server");
+//     }
+
+//     return await res.json(); // ৩. এক্সপ্রেস থেকে আসা ফিল্টার করা জবের জেসন ডাটা মেইন পেজে ব্যাক পাঠানো হলো।
+//   } catch (error) {
+//     console.error("Error in getFilteredJobs action:", error);
+//     return []; 
+//   }
+// }
+
+//Filter
+export async function getFilteredJobs({ category, type, search }) {
+  try {
+    let url = "http://localhost:8000/jobs";
+
+    if (category) {
+      url += `?category=${encodeURIComponent(category)}`;
+    } 
+    else if (type) {
+      const separator = url.includes("?") ? "&" : "?";
+      url += `${separator}type=${encodeURIComponent(type)}`;
+    }
+    else if (search) {
+      const separator = url.includes("?") ? "&" : "?";
+      url += `${separator}search=${encodeURIComponent(search)}`;
     }
 
     const res = await fetch(url, { cache: "no-store" });
-    // 🎯 লাইন চেঞ্জ: এই নতুন ডাইনামিক url নিয়ে fetch মেথড এক্সপ্রেস সার্ভারে রিকোয়েস্ট পাচার করে দিল।
+    const result = await res.json();
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch jobs from server");
-    }
-
-    return await res.json(); // ৩. এক্সপ্রেস থেকে আসা ফিল্টার করা জবের জেসন ডাটা মেইন পেজে ব্যাক পাঠানো হলো।
+    // মেইন পেজে অবজেক্ট আকারে ব্যাক করলাম
+    return {
+        jobs: result.data || [],
+        count: result.count || 0
+    };
   } catch (error) {
-    console.error("Error in getFilteredJobs action:", error);
-    return []; 
+    console.error("Error fetching jobs:", error);
+    return { jobs: [], count: 0 };
   }
 }

@@ -6,13 +6,13 @@
   /* ==========================================
      🌊 NEW CORE THEME (Active from now on)
      ========================================== */
---color-workable-bg: #0A1628;          /* Mother BG — Deep Navy */
---color-workable-slate: #112240;       /* Child BG — Card/Modal */
---color-workable-text-dark: #E6F1FF;   /* Primary Text — প্রায় সাদা */
---color-workable-text-muted: #8892B0;  /* Secondary Text — মাঝারি */
---color-workable-dark-green: #64FFDA;  /* Accent — Bright Cyan */
---color-workable-primary: #00B4D8;     /* Button/Link — Sky Blue */
---color-ocean-slate-light: #CCD6F6;    /* Subtle Text / Border */
+--color-workable-bg: #1E2F23;          /* Mother BG — Darkest Green */
+--color-workable-slate: #34623F;       /* Child BG — Card/Modal */
+--color-workable-text-dark: #B39C4D;   /* Primary Text — Light Yellow-Green */
+--color-workable-text-muted: #90A955;  /* Secondary Text — Muted Green */
+--color-workable-dark-green: #B39C4D;  /* Accent — Golden */
+--color-workable-primary: #768948;     /* Button/Link — Olive Green */
+--color-ocean-slate-light: #607744;    /* Border/Subtle — Mid Green */
 
   --font-heading: var(--font-heading), sans-serif;
   --font-body: var(--font-body), sans-serif;
@@ -30,6 +30,6 @@
 
 /* Global Body Override with the New Theme */
 body {
-  background-color: var(--color-workable-bg); /* Now refers to #04202B */
-  color: var(--color-workable-text-dark);     /* Now refers to #E4EDEC */
+  background-color: var(--color-workable-bg); /* Now refers to #1E2F23 */
+  color: var(--color-workable-text-dark);     /* Now refers to #ECF39E */
 }
